@@ -1,0 +1,24 @@
+# Researchers
+# 한 사람 = [[group.person]] 블록 하나. 순서대로 화면에 표시됩니다.
+# 사진은 static/img/people/ 에 넣고 파일 이름만 적습니다.
+
+
+[[group]]
+title = "Postdoctoral Researcher"
+divider_after = true
+
+[[group.person]]
+name = "Jae Hyung Park"
+photo = "jae-hyung-park.png"
+email = "jhpark19@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Hanyang University, 2019",
+  "Ph.D. Nuclear Engineering, Hanyang University, 2026",
+]
+research = [
+  "Natural circulation flow based primary system",
+]
+keywords = ["자연순환 SMR", "피동안전"]
+
+[[group]]
+title = "Research Fellows"

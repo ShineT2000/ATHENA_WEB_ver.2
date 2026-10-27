@@ -1,0 +1,239 @@
+# Graduate Students
+# 한 사람 = [[group.person]] 블록 하나. 순서대로 화면에 표시됩니다.
+# 사진은 static/img/people/ 에 넣고 파일 이름만 적습니다.
+# since = 입학 연월(이름 옆 괄호에 표시), keywords = KEY WORD 줄의 키워드
+
+
+[[group]]
+title = "M.S.–Ph.D. Integrated Students"
+divider_after = true
+
+[[group.person]]
+name = "Namgook Kim"
+since = "2018.03"
+photo = "namgook-kim.png"
+email = "ngkim@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Hanyang University, 2017",
+]
+research = [
+  "Critical heat flux of ATF cladding under oxidation and Roughness effect on capillary wicking & CHF",
+]
+keywords = ["CHF", "Critical Heat Flux"]
+
+[[group.person]]
+name = "Yunsik Cho"
+since = "2018.09"
+photo = "yunsik-cho.png"
+email = "yunscho@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Hanyang University, 2017",
+]
+research = [
+  "Severe accident analysis using MPS and evaluation of fission product",
+]
+keywords = ["MPS", "중대사고", "MSR", "FP"]
+
+[[group.person]]
+name = "Jihun Im"
+since = "2020.03"
+photo = "jihun-im.jpg"
+email = "jihunlim@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Chung-Ang University, 2020",
+]
+research = [
+  "MATLAB-based system design improvement of the PMFR",
+]
+keywords = ["피동안전", "MSR", "동력변환"]
+
+[[group.person]]
+name = "Ju Hyeong Lee"
+since = "2021.03"
+photo = "ju-hyeong-lee.png"
+email = "juhyeonglee@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Hanyang University, 2021",
+]
+research = [
+  "Transient analysis of Molten Salt Reactor",
+]
+keywords = ["다물리", "연계해석", "CFD"]
+
+[[group.person]]
+name = "Won Jun Choi"
+since = "2021.09"
+photo = "won-jun-choi.png"
+email = "wjchoi97@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Hanyang University, 2021",
+]
+research = [
+  "Experimental and numerical analysis of two-phase flow for MSR",
+]
+keywords = ["MSR", "헬륨버블링", "상사법칙"]
+
+[[group.person]]
+name = "Hyo Jun An"
+since = "2022.03"
+photo = "hyo-jun-an.png"
+email = "hjan97@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Hanyang University, 2022",
+]
+research = [
+  "Severe accident analysis using System Code",
+]
+keywords = ["SMR", "System code", "Passive safety"]
+
+[[group.person]]
+name = "Cheolwoong Kim"
+since = "2023.03"
+photo = "cheolwoong-kim.png"
+email = "cjfdnd9310@hanyang.ac.kr"
+education = [
+  "B.S. Mechanical Engineering, UNIST, 2021",
+]
+research = [
+  "Interpretation of the severe accident using AI",
+]
+keywords = ["중대사고", "UQ", "i-SMR", "AI"]
+
+[[group.person]]
+name = "Do Won Lee"
+since = "2024.09"
+photo = "do-won-lee.jpg"
+email = "dwlee98@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Hanyang University, 2024.",
+]
+research = [
+  "Numerical analysis of safety and source term for MSR",
+]
+keywords = ["MSR", "안전", "CFD", "선원항"]
+
+[[group.person]]
+name = "Seung Min Lee"
+since = "2026.03"
+photo = "seung-min-lee.jpg"
+email = "afjl53@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Hanyang University, 2026",
+]
+research = [
+  "safety analysis and neutronics analysis for MSR",
+]
+keywords = ["MSR", "Multiphysics", "System TH"]
+
+[[group.person]]
+name = "Hyunjun Chung"
+since = "2026.03"
+photo = "hyunjun-chung.jpg"
+email = "hjchung@hanyang.ac.kr"
+education = [
+  "B.S Quantum System Engineering, Jeonbuk National University, 2026",
+]
+research = [
+  "i-SMR severe accident analysis and MSR core design",
+]
+keywords = ["중대사고", "i-SMR", "MSR"]
+
+[[group]]
+title = "Ph.D. Students"
+divider_after = true
+
+[[group.person]]
+name = "Ye Hwan Chun"
+since = "2023.03"
+photo = "ye-hwan-chun.png"
+email = "yhchun@hanyang.ac.kr"
+education = [
+  "B.S. Mechanical Engineering, Hanbat National University. 2021",
+  "M.S. Mechanical Engineering, Kookmin University. 2023",
+]
+research = [
+  "Experimental and numerical study of molten salt flow",
+]
+keywords = ["열유체", "MSR", "CFD", "고화용융"]
+
+[[group.person]]
+name = "BERLOT Baptiste"
+since = "2025.09"
+photo = "berlot-baptiste.jpg"
+email = "berlot@hanyang.ac.kr"
+education = [
+  "B.S. Physics, CY Cergy Paris university, 2021",
+  "M.S. Nuclear Engineering, Conservatoire National des Arts et Métiers (CNAM), 2025",
+]
+research = [
+  "Molten Salt Reactor",
+]
+keywords = ["MSR", "자연순환", "동특성", "안정성"]
+
+[[group]]
+title = "M.S. Students"
+
+[[group.person]]
+name = "Yujin Kim"
+since = "2025.03"
+photo = "yujin-kim.jpg"
+email = "yjkim25@hanyang.ac.kr"
+education = [
+  "B.S Nuclear Engineering, Sejong University, 2025",
+]
+research = [
+  "AI-Enhanced Nuclear Safety",
+]
+keywords = ["중대사고", "ML", "피동안전"]
+
+[[group.person]]
+name = "Ok Hyeon Lee"
+since = "2025.03"
+photo = "ok-hyeon-lee.png"
+email = "okhlee@hanyang.ac.kr"
+education = [
+  "B.S Mechanical Engineering, Chungnam National University, 2024",
+]
+research = [
+  "Uncertainty quantification of severe accident using CINEMA",
+]
+keywords = ["중대사고", "UQ", "CINEMA"]
+
+[[group.person]]
+name = "Jaemin Han"
+since = "2025.03"
+photo = "jaemin-han.jpg"
+email = "hjmin29@hanyang.ac.kr"
+education = [
+  "B.S. Mechanical Engineering, University of Ulsan, 2025",
+]
+research = [
+  "CFD analysis of Molten Salt Reactor",
+]
+keywords = ["CFD", "열수력", "MSR"]
+
+[[group.person]]
+name = "Yu Seong Go"
+since = "2026.03"
+photo = "yu-seong-go.jpg"
+email = "ysgo00@hanyang.ac.kr"
+education = [
+  "B.S Quantum System Engineering, Jeonbuk National University, 2026",
+]
+research = [
+  "Severe accident analysis",
+]
+keywords = ["중대사고", "System code", "AI"]
+
+[[group.person]]
+name = "Sinho Kim"
+since = "2026.09"
+photo = "sinho-kim.png"
+email = "kim4star@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Hanyang University, 2026",
+]
+research = [
+  "AI for Nuclear Safety",
+]
+keywords = ["ML 신뢰성", "Alignment", "Risk"]
