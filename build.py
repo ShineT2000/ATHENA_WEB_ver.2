@@ -18,10 +18,10 @@ SITE = tomllib.loads((ROOT / 'data/site.toml').read_text(encoding='utf-8'))
 NEWS = tomllib.loads((ROOT / 'data/news.toml').read_text(encoding='utf-8'))['news']
 
 FIELDS = [
-    ('reactor-design', 'Reactor Design', 'SMR · MSR · Natural circulation', '차세대 원자로 설계', 'Conceptual design, helium-bubble lift and coupled thermal-hydraulic analysis of advanced reactors.', 'reactor-design-pmfr-1.png'),
-    ('safety-analysis', 'Safety Analysis', 'Passive safety · Heat transfer', '실험과 해석을 통한 안전성 평가', 'Experimental validation of passive cooling systems and thermal-hydraulic safety performance.', 'safety-analysis-mcv-3.png'),
-    ('severe-accident', 'Severe Accident', 'MELCOR · MAAP · CINEMA', '중대사고 해석과 대응 전략', 'Accident progression, source terms, hydrogen risk and mitigation strategies for nuclear systems.', 'severe-accident-integrated-1.png'),
-    ('ai-for-nuclear-safety', 'AI for Nuclear Safety', 'Surrogate models · Trustworthy AI', '원자력 안전을 위한 인공지능', 'Data-driven accident diagnosis, progression prediction and decision support for operators.', 'ai-for-nuclear-safety-prediction-1.png'),
+    ('reactor-design', 'Reactor Design', 'PMFR · Natural circulation · Marine motion', 'PMFR 자연순환·핵분열생성물 제거·설계 최적화', 'PMFR circulation, bubble-assisted fission product removal, coupled analysis and thermal-hydraulic design optimization.', 'reactor-design-pmfr-1.png'),
+    ('safety-analysis', 'Safety Analysis', 'Passive safety · Heat transfer · Uncertainty', 'SMR 피동안전·열전달 실험·불확실도 평가', 'SMR passive cooling, containment heat transfer experiments, PCM safety concepts and code uncertainty analysis.', 'ismr-containment-experiment-2026.jpg'),
+    ('severe-accident', 'Severe Accident', 'MELCOR · MAAP · CINEMA · Marine MSR', '중대사고 해석·사고관리·해양 MSR 안전 연구', 'Integrated accident analysis, hydrogen risk, CINEMA verification and marine MSR salt spill and solidification.', 'marine-msr-spill-phenomena-2026.png'),
+    ('ai-for-nuclear-safety', 'AI for Nuclear Safety', 'MAAP surrogate · SAMG · Action timing', 'MAAP 대리모델을 이용한 사고관리 전략 평가', 'Neural-network prediction of containment pressure histories and comparison of accident management action schedules.', 'ai-maap-pressure-history-2026.png'),
 ]
 MENU = [
     ('Home', '/', []),
@@ -112,7 +112,7 @@ def home():
 def hub(page):
     route = page['url']
     if route == '/research':
-        return '<p class="page-lead">Experiments and numerical methods for safer nuclear systems.</p>' + research_cards() + '<div class="callout"><h2>Experimental &amp; numerical</h2><p>Our work connects two-phase heat transfer experiments, CFD, system codes and machine learning. Explore the development of these research directions over 15 years.</p><a class="text-link" href="/about/">Research history →</a></div>'
+        return '<p class="eyebrow">RESEARCH OVERVIEW · SEPTEMBER 2026</p><p class="page-lead">Experiments and numerical analysis for passive reactor safety, PMFR development and accident management.</p>' + research_cards() + '<div class="callout"><h2>Marine molten salt reactor safety</h2><p>Marine applications connect reactor design with accident analysis. We investigate ocean-motion effects on the PMFR and freeze valves, together with salt spill, spreading and solidification in the MARS-100 research direction.</p><a class="text-link" href="/research/reactor-design/#marine">Ocean motion &amp; freeze valves →</a><br><a class="text-link" href="/research/severe-accident/#marine-msr">MARS-100 &amp; salt spill research →</a></div><p class="source-note">Research themes and illustrations updated from the ATHENA Lab. introduction, September 30, 2026, slides 5–17.</p>'
     if route == '/news':
         articles = []
         for i, n in enumerate(NEWS):
