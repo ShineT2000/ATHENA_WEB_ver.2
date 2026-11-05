@@ -36,16 +36,24 @@ python -m http.server 4173 --bind 127.0.0.1 --directory dist
 
 ## 배포
 
-완성된 `dist/` 폴더를 정적 호스팅에 올릴 수 있습니다. 이 저장소는 로컬 저장본으로 만들었으며 원격 저장소와 공개 배포는 설정하지 않았습니다.
+완성된 `dist/` 폴더를 정적 호스팅에 올릴 수 있습니다. GitHub Pages 자동 배포 설정은 `.github/workflows/deploy.yml`에 있습니다.
+
+GitHub 저장소 최상위에 이 폴더의 내용(`build.py`, `.github/`, `static/` 등)을 올린 뒤 **Settings → Pages → Build and deployment → Source → GitHub Actions**를 선택하세요. 이후 `main` 브랜치에 push할 때마다 빌드와 링크 검사를 통과한 홈페이지를 자동으로 배포합니다. 첫 배포는 **Actions → Deploy ATHENA to GitHub Pages → Run workflow**에서도 시작할 수 있습니다. 배포가 끝나면 해당 실행의 `github-pages` 환경에 공개 주소가 표시됩니다.
+
+배포 대상 저장소는 `https://github.com/ShineT2000/ATHENA_WEB_ver.2`입니다. 일반 프로젝트 Pages 주소는 `https://shinet2000.github.io/ATHENA_WEB_ver.2/`이며, 실제 주소는 배포 결과에서 확인합니다.
+
+자동 배포에서는 GitHub Pages 설정으로부터 기준 경로를 읽으므로 저장소 이름을 코드에 고정하지 않습니다. 저장소 이름 변경이나 사용자 지정 도메인에도 같은 워크플로를 사용할 수 있습니다.
 
 GitHub Pages의 저장소 경로 아래에 배포할 때는 아래처럼 기준 경로를 설정한 후 빌드하세요.
 
 ```powershell
-$env:SITE_BASE='/ver.CTRP'
+$env:SITE_BASE='/ATHENA_WEB_ver.2'
 python build.py
+python verify.py
+Remove-Item Env:SITE_BASE
 ```
 
-`.github/workflows/check.yml`은 push/PR 시 기본 경로의 빌드와 검사를 실행합니다. 실제 배포 동작은 포함하지 않습니다.
+`.github/workflows/check.yml`은 push/PR 시 기본 경로와 하위 경로 양쪽의 빌드와 검사를 실행합니다. 배포 권한은 `deploy.yml`의 배포 작업에만 부여됩니다. 로컬 미리보기로 돌아갈 때는 `SITE_BASE`를 지운 상태에서 다시 빌드하세요.
 
 ## 주요 기능
 

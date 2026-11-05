@@ -14,11 +14,14 @@ class Page(HTMLParser):
     def __init__(self, path):
         super().__init__()
         self.path, self.ids, self.links, self.h1 = path, set(), [], 0
+        self.base = ''
         self.duplicates = []
         self.feed(path.read_text(encoding='utf-8'))
 
     def handle_starttag(self, tag, pairs):
         attrs = dict(pairs)
+        if tag == 'html':
+            self.base = attrs.get('data-base', '').rstrip('/')
         if 'id' in attrs:
             if attrs['id'] in self.ids:
                 self.duplicates.append(attrs['id'])
@@ -45,6 +48,11 @@ def main():
                 continue
             links += 1
             local = unquote(u.path)
+            if page.base and local.startswith('/'):
+                if local != page.base and not local.startswith(page.base + '/'):
+                    errors.append(f'{path.relative_to(DIST)}: link outside site base {link}')
+                    continue
+                local = local[len(page.base):] or '/'
             target = (DIST / local.lstrip('/')) if local.startswith('/') else (path.parent / local)
             if not local:
                 target = path

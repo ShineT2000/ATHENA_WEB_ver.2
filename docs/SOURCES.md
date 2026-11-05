@@ -19,6 +19,13 @@
 
 ## 디자인 참고
 
+### 메인 화면 PMFR 애니메이션 (2026-11-05)
+
+- MSR 선택 시 표시하는 단면도는 `static/img/research/reactor-design-pmfr-1.png`의 PMFR 형상을 참고해 Canvas로 직접 구현했습니다. 금속 격납용기, 하부 액체연료 노심, 중앙 상승관, 나선형 열교환기, 외곽 하강부, 헬륨 주입부와 상부 가스 분리·배출 계통을 단순화했습니다.
+- ATHENA 연구 소개: https://sites.google.com/hanyang.ac.kr/athena/research/smr-small-modular-reactor
+- 자연순환 방향 참고: Juhyeong Lee et al., “Analysis of natural circulation characteristics of passive molten salt fast reactor by using OpenFOAM simulation,” KNS Spring Meeting, 2023. https://www.kns.org/files/pre_paper/49/23S-374-%EC%9D%B4%EC%A3%BC%ED%98%95.pdf
+- 입자와 기포의 속도·크기, 색상과 구조물 비율은 설명을 위한 시각적 표현이며 수치해석 결과나 실제 설계 치수가 아닙니다.
+
 https://ctrp.hanyang.ac.kr/
 
 흰색 상단 메뉴, 짙은 남색의 소개 화면, 청록색 강조색, 연구 분야 카드, 구성원과 연구 실적 요약, 모집·연락처 구성을 참고했습니다. CTRP의 로고·문구·연구 데이터·중성자 애니메이션 코드는 복제하지 않았습니다. 첫 화면의 열수력 개념도와 전체 스타일은 새로 구현했습니다.

@@ -96,10 +96,10 @@ def home():
       <p class="hero-korean" lang="ko">한양대학교 원자력 열수력 연구실에 오신 것을 환영합니다.<br>실험과 전산 해석으로 차세대 원자로의 안전을 연구합니다.</p>
       <div class="hero-actions"><a class="button primary" href="/research/">Explore our research <span>↗</span></a><a class="text-link light" href="/people/principal-investigator/">Meet Prof. Sung Joong Kim <span>→</span></a></div>
       </div>
-      <div class="hero-visual"><div class="visual-heading"><span class="small-label">NATURAL CIRCULATION</span><div class="reactor-switch" role="group" aria-label="Reactor concept"><button data-reactor="smr" aria-pressed="true">SMR</button><button data-reactor="msr" aria-pressed="false">MSR</button></div></div>
-      <canvas id="reactor-canvas" width="640" height="530" role="img" aria-label="Illustrative natural circulation loop: heat rises from the reactor core and is removed at a heat exchanger."></canvas>
+      <div class="hero-visual"><div class="visual-heading"><span class="small-label">NATURAL CIRCULATION</span><div class="reactor-switch" role="group" aria-label="Reactor concept"><button data-reactor="smr" aria-pressed="false">SMR</button><button data-reactor="msr" aria-pressed="true">MSR</button></div></div>
+      <canvas id="reactor-canvas" width="640" height="530" role="img" aria-label="ATHENA PMFR conceptual cutaway: central riser, helical-coil heat exchanger, outer downcomer and helium injection."></canvas>
       <div class="visual-caption"><span><i class="hot"></i> Heat source</span><span><i class="cold"></i> Heat removal</span><button id="motion-toggle" aria-pressed="false">Pause animation</button></div>
-      <p id="reactor-description">SMR · Passive heat removal by natural circulation</p><span class="concept-note">Conceptual illustration</span></div>
+      <p id="reactor-description">PMFR · Natural circulation with helium-bubble lift</p><span class="concept-note">ATHENA PMFR · Simplified cutaway</span></div>
       <div class="hero-bottom"><span><b>2011 — 2026</b> &nbsp; 15 years of ATHENA</span><a href="#research">Discover the laboratory <span>↓</span></a></div>
     </div></section>
     <section class="section wrap" id="research"><div class="section-heading"><div><p class="eyebrow">WHAT WE DO</p><h2>Research Fields</h2></div><a class="text-link" href="/research/">All research {arrow()}</a></div>{research_cards()}</section>
@@ -182,6 +182,7 @@ def main():
     pages = [*SITE['page'], {'url':'/about','title':'Research History','type':'history'}]
     index = []
     css_hash = hashlib.sha256((ROOT / 'static/css/style.css').read_bytes()).hexdigest()[:10]
+    js_hash = hashlib.sha256((ROOT / 'static/js/site.js').read_bytes()).hexdigest()[:10]
     for page in pages:
         route = page['url'] + '/'
         title = page['title'].title() if page['title'].isupper() else page['title']
@@ -210,7 +211,7 @@ def main():
             section = next((m[0] for m in MENU if m[1] != '/' and route.startswith(m[1])), 'ATHENA LABORATORY')
             body = f'<section class="page-banner"><div class="wrap"><div class="breadcrumbs"><a href="/">Home</a><span>/</span><span>{esc(section)}</span></div><p class="eyebrow">ATHENA LABORATORY</p><h1>{esc(title)}</h1></div></section><div class="wrap content-layout">{side_links(route)}<div class="page-content" data-content-kind="{kind}">{body}</div></div>'
         sitemap = ''.join(f'<div><a href="{url}">{t}</a>' + ''.join(f'<a href="{u}">{esc(n)}</a>' for n,u in children) + '</div>' for t,url,children in MENU)
-        doc = template.substitute(title=esc(title), description=esc(SITE['description']), nav=nav(route), body=body, version=css_hash, sitemap=sitemap)
+        doc = template.substitute(title=esc(title), description=esc(SITE['description']), nav=nav(route), body=body, version=css_hash, script_version=js_hash, sitemap=sitemap)
         if BASE:
             doc = re.sub(r'((?:href|src|data-image)=")/(?!/)', rf'\g<1>{BASE}/', doc)
         doc = doc.replace('data-base=""', f'data-base="{esc(BASE)}"')

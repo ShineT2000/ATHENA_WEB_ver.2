@@ -91,20 +91,170 @@ $$('.gallery-open').forEach(button => button.addEventListener('click', () => {
 const canvas = $('#reactor-canvas');
 if (canvas) {
   const ctx = canvas.getContext('2d'), reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  let mode = 'smr', paused = reducedMotion.matches, active = true, phase = 0, last = 0;
+  let mode = 'msr', paused = reducedMotion.matches, active = true, phase = 0, last = 0;
   const pauseButton = $('#motion-toggle');
   function syncMotion() { pauseButton.textContent = paused ? 'Play animation' : 'Pause animation'; pauseButton.setAttribute('aria-pressed',paused); }
   syncMotion(); pauseButton.addEventListener('click', () => { paused = !paused; syncMotion(); });
   reducedMotion.addEventListener('change', e => { paused = e.matches; syncMotion(); });
   $$('[data-reactor]').forEach(button => button.addEventListener('click', () => {
     mode = button.dataset.reactor; $$('[data-reactor]').forEach(b => b.setAttribute('aria-pressed',b === button));
-    $('#reactor-description').textContent = mode === 'smr' ? 'SMR · Passive heat removal by natural circulation' : 'MSR · Helium-bubble lift enhances fuel-salt circulation';
-    canvas.setAttribute('aria-label',mode === 'smr' ? 'Illustrative SMR loop: core heating and passive heat removal.' : 'Illustrative MSR loop: helium injection enhances fuel-salt circulation through the core and heat exchanger.');
+    $('#reactor-description').textContent = mode === 'smr' ? 'SMR · Passive heat removal by natural circulation' : 'PMFR · Natural circulation with helium-bubble lift';
+    $('.concept-note').textContent = mode === 'smr' ? 'Conceptual illustration' : 'ATHENA PMFR · Simplified cutaway';
+    canvas.setAttribute('aria-label',mode === 'smr' ? 'Illustrative SMR loop: core heating and passive heat removal.' : 'ATHENA PMFR conceptual cutaway: fuel salt heats in the lower core, rises through the central riser, cools at the surrounding helical-coil heat exchanger and returns through the outer downcomer. Helium bubbles rise to the upper separator and off-gas system.');
   }));
+  const initialMode = new URLSearchParams(window.location.search).get('reactor');
+  $(`[data-reactor="${initialMode === 'smr' ? 'smr' : 'msr'}"]`).click();
   new IntersectionObserver(entries => { active = entries[0].isIntersecting; }).observe(canvas);
   function line(points,color,width=1) {ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();points.forEach(([x,y],i) => i ? ctx.lineTo(x,y) : ctx.moveTo(x,y));ctx.stroke();}
   function text(str,x,y,size=10,color='#83a8ba',align='left') {ctx.font=`${size}px Lato,Arial,sans-serif`;ctx.fillStyle=color;ctx.textAlign=align;ctx.fillText(str,x,y);}
   function rect(x,y,w,h,r,fill,stroke) {ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke()}}
+  // PMFR layout follows the lab's reactor-design-pmfr-1.png. Streamlines are
+  // illustrative: central upflow, cooling around the coils, outer return flow.
+  // Cache arc-length samples so particles move continuously through every bend.
+  function pmfrLoop(side, lane) {
+    const cx = 320 + lane * 5, outer = 320 + side * (77 + lane * 5);
+    const segments = [
+      [[cx,414],[cx,340],[cx,202],[cx,131]],
+      [[cx,131],[cx,105],[outer,105],[outer,143]],
+      [[outer,143],[outer,205],[outer,334],[outer,394]],
+      [[outer,394],[outer,429],[cx,446],[cx,414]],
+    ];
+    const points = []; let length = 0;
+    segments.forEach(segment => {
+      for (let i = 0; i <= 48; i++) {
+        const t = i / 48, s = 1 - t;
+        const x = s*s*s*segment[0][0] + 3*s*s*t*segment[1][0] + 3*s*t*t*segment[2][0] + t*t*t*segment[3][0];
+        const y = s*s*s*segment[0][1] + 3*s*s*t*segment[1][1] + 3*s*t*t*segment[2][1] + t*t*t*segment[3][1];
+        const previous = points[points.length - 1];
+        if (previous) length += Math.hypot(x - previous.x, y - previous.y);
+        points.push({x,y,length});
+      }
+    });
+    return {points, length, side, lane};
+  }
+  const pmfrLoops = [-1,1].flatMap(side => [-1,0,1].map(lane => pmfrLoop(side,lane)));
+  function flowPoint(loop, progress) {
+    const distance = ((progress % 1 + 1) % 1) * loop.length;
+    let lo = 0, hi = loop.points.length - 1;
+    while (lo < hi) { const mid = (lo + hi) >> 1; if (loop.points[mid].length < distance) lo = mid + 1; else hi = mid; }
+    const b = loop.points[lo], a = loop.points[Math.max(0,lo - 1)];
+    const t = (distance - a.length) / (b.length - a.length || 1);
+    return [a.x + (b.x - a.x)*t, a.y + (b.y - a.y)*t];
+  }
+  function arrow(x,y,direction,color) {
+    line([[x-5,y-direction*5],[x,y+direction*3],[x+5,y-direction*5]],color,1.5);
+  }
+  function drawPMFR() {
+    const hot = '#f2ad78', cold = '#65d8d4', gold = '#d9bc7e';
+    // Metal containment and the reactor vessel, shown as a transparent cutaway.
+    const metal = ctx.createLinearGradient(205,0,435,0);
+    metal.addColorStop(0,'#8bb6c51c'); metal.addColorStop(.3,'#4568750c');
+    metal.addColorStop(.75,'#6e9ba10b'); metal.addColorStop(1,'#a3c8ce25');
+    rect(205,57,230,396,[27,27,19,19],metal,'#9cbfc766');
+    rect(219,87,202,351,[13,13,20,20],'#102c38a6','#93bec84d');
+    line([[205,81],[435,81]],'#a4c7cc66',2);
+    line([[210,446],[198,466],[442,466],[430,446]],'#7a9eaf55');
+    line([[190,473],[450,473]],'#86b3c32e');
+    // Inert salt around the primary vessel.
+    rect(210,99,7,325,3,'#74a9ab19'); rect(423,99,7,325,3,'#74a9ab19');
+    text('INERT SALT',427,278,7,'#739ba7','center');
+    ctx.save();
+    ctx.beginPath(); ctx.roundRect(222,95,196,340,18); ctx.clip();
+    const salt = ctx.createLinearGradient(0,117,0,424);
+    salt.addColorStop(0,'#ecaa7422'); salt.addColorStop(.5,'#69c8c00d'); salt.addColorStop(1,'#65d8d41a');
+    ctx.fillStyle=salt; ctx.fillRect(222,95,196,340);
+    // Lower liquid-fuel core tapers into a long central riser.
+    const coreGlow=ctx.createRadialGradient(320,388,5,320,388,73);
+    coreGlow.addColorStop(0,'#f5a26742');coreGlow.addColorStop(1,'#f5a26700');
+    ctx.fillStyle=coreGlow;ctx.fillRect(240,313,160,125);
+    const coreFill=ctx.createLinearGradient(0,351,0,422);
+    coreFill.addColorStop(0,'#f7b37c30');coreFill.addColorStop(1,'#d37e4914');
+    ctx.beginPath();ctx.moveTo(301,145);ctx.lineTo(301,332);ctx.lineTo(280,354);
+    ctx.lineTo(280,418);ctx.quadraticCurveTo(320,432,360,418);
+    ctx.lineTo(360,354);ctx.lineTo(339,332);ctx.lineTo(339,145);
+    ctx.fillStyle=coreFill;ctx.fill();ctx.strokeStyle='#efb48585';ctx.lineWidth=1.2;ctx.stroke();
+    // Perforated inlet distributor below the core, rather than solid fuel rods.
+    line([[284,416],[356,416]],'#c2bec599',2);
+    for(let x=289;x<356;x+=10)rect(x,414,3,4,1,'#17313c');
+    for(const x of [267,365]){
+      rect(x,358,8,58,3,'#1e3542','#9db1bc69');
+      rect(x+2,363,3,45,1,gold+'a6');
+    }
+    // Both return paths join the same liquid-fuel core at the bottom.
+    for (const loop of pmfrLoops) {
+      line(loop.points.map(p => [p.x,p.y]),'#99c5c122',.8);
+      for(let i=0;i<29;i++) {
+        const [x,y]=flowPoint(loop,i/29+phase*.78+loop.lane*.009);
+        const cooling=Math.abs(x-320)>42 ? Math.max(0,Math.min(1,(y-145)/170)) : (y>402 ? .5 : 0);
+        const rgb=[242,173,120].map((v,j)=>Math.round(v+([101,216,212][j]-v)*cooling));
+        ctx.beginPath();ctx.arc(x,y,loop.lane===0?1.8:1.2,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${rgb.join(',')},${loop.lane===0?.85:.42})`;ctx.fill();
+      }
+    }
+    // Annular helical-coil heat exchanger flanks the riser in this section.
+    for(const side of [-1,1]) {
+      const center=320+side*54;
+      rect(center-18,153,36,158,8,'#122e3770','#80c2c124');
+      const coil=ctx.createLinearGradient(center-17,0,center+17,0);
+      coil.addColorStop(0,'#8a784e');coil.addColorStop(.35,'#e5c991');coil.addColorStop(1,'#9eab87');
+      // A continuous helix; rear half-turns are dimmed to suggest depth.
+      for(const front of [false,true])for(let turn=0;turn<13;turn++) {
+        ctx.beginPath();
+        for(let step=0;step<=24;step++) {
+          const angle=(turn*2+(front?0:1)+step/24)*Math.PI;
+          const x=center+17*Math.cos(angle), y=155+angle/(2*Math.PI)*11.5+4*Math.sin(angle);
+          step?ctx.lineTo(x,y):ctx.moveTo(x,y);
+        }
+        ctx.strokeStyle=front?coil:'#709d9b60';ctx.lineWidth=front?2.6:1.7;ctx.stroke();
+      }
+      line([[center-11,155],[center-11,101],[center-4,101],[center-4,57]],'#74d9d7a6',2);
+      line([[center+11,307],[center+11,98],[center+4,98],[center+4,57]],'#cba97b66',1.5);
+    }
+    // Helium bubbles rise from the sparger through the core and central riser.
+    for(let i=0;i<20;i++) {
+      const k=(i/20+phase*1.65)%1, y=420-k*305;
+      const x=320+Math.sin(i*9.7+k*7)*(y>350?17:10);
+      ctx.beginPath();ctx.arc(x,y,1.6+(i%3)*.55,0,Math.PI*2);
+      ctx.strokeStyle='#b3efefb3';ctx.lineWidth=.85;ctx.stroke();
+    }
+    ctx.restore();
+    arrow(320,227,-1,hot);arrow(320,287,-1,hot);
+    arrow(242,252,1,cold);arrow(398,342,1,cold);
+    // Separator and off-gas piping at the top of the vessel.
+    rect(294,93,52,17,5,'#2c5554','#84c7ba88');
+    for(const x of [235,387])rect(x,65,18,29,4,'#326759b3','#79bba566');
+    line([[320,94],[320,43],[447,43]],'#8bceba99',1.7);
+    for(let i=0;i<5;i++){
+      const k=(i/5+phase*1.5)%1;
+      const x=k<.3?320:320+(k-.3)/.7*118, y=k<.3?91-k/.3*48:43;
+      ctx.beginPath();ctx.arc(x,y,1.8,0,Math.PI*2);ctx.fillStyle='#a8e5d6b3';ctx.fill();
+    }
+    text('OFF-GAS SYSTEM',457,46,9,'#9ed0c6');
+    // Two secondary-side connections, with no external primary pump or loop.
+    line([[262,57],[262,28],[294,28]],'#74d9d78c',1.5);
+    line([[378,57],[378,28],[346,28]],'#cba97b8c',1.5);
+    text('SECONDARY SYSTEM',320,18,8,'#9fbdc9','center');
+    line([[320,439],[320,458],[126,458]],'#9ce0dd8c',1.6);
+    line([[297,425],[343,425]],'#a7e8e4b3',1.7);
+    line([[320,439],[320,425]],'#a7e8e4b3',1.7);
+    // Callouts stay outside the vessel to keep the cutaway legible.
+    line([[205,81],[173,65],[81,65]],'#86aabc66');
+    text('METAL CONTAINMENT',64,55,9,'#97b4c3');
+    line([[294,101],[170,101],[155,113]],'#84c7ba66');
+    text('GAS SEPARATOR',64,128,9,'#97c5bf');
+    line([[301,225],[174,225],[159,213]],'#d7b18e66');
+    text('CENTRAL RISER',64,195,10,'#d0c3b1');text('Heated fuel salt rises',64,210,8,'#8ba4b2');
+    line([[280,383],[164,383],[150,369]],'#d7b18e66');
+    text('LIQUID-FUEL CORE',64,348,10,'#e3bf9e');text('Heat generation',64,363,8,'#8ba4b2');
+    text('He INJECTION',64,449,9,'#a5dcd7');
+    line([[390,200],[462,200],[477,184]],'#d9bc7e88');
+    text('HELICAL-COIL',455,157,10,'#dbc59f');text('HEAT EXCHANGER',455,171,10,'#dbc59f');
+    text('Heat to secondary salt',455,186,8,'#8ba4b2');
+    line([[398,348],[458,348],[473,335]],'#65d8d477');
+    text('DOWNCOMER',461,311,10,'#a7d7d7');text('Cooled fuel salt returns',461,326,8,'#8ba4b2');
+    text('PMFR',320,494,13,'#c1d8df','center');
+    text('PASSIVE MOLTEN SALT FAST REACTOR',320,510,8,'#749bad','center');
+  }
   function draw(time) {
     if (active) {
       const delta=Math.min(time-last||16,50);if(!paused)phase+=delta*.000025;last=time;
@@ -114,6 +264,7 @@ if (canvas) {
       const glow=ctx.createRadialGradient(330,268,10,330,268,240);glow.addColorStop(0,'#1a758022');glow.addColorStop(1,'#1a758000');ctx.fillStyle=glow;ctx.fillRect(0,0,640,530);
       for(let x=60;x<590;x+=24)for(let y=25;y<500;y+=24){ctx.fillStyle='#8bc6d011';ctx.fillRect(x,y,1,1)}
       ctx.setLineDash([4,7]);line([[324,40],[324,475]],'#8ac3d516');line([[70,270],[580,270]],'#8ac3d516');ctx.setLineDash([]);
+      if (mode === 'msr') { drawPMFR(); requestAnimationFrame(draw); return; }
       rect(170,59,288,394,130,'#39647608','#89b5c12c');rect(192,81,244,350,106,'#2c53611b','#8eb9c652');
       line([[195,410],[180,460],[448,460],[432,410]],'#739aaa43');line([[172,468],[457,468]],'#93b8c82b');
       const hot=mode==='smr'?'#eaa276':'#eda66d';
@@ -130,11 +281,6 @@ if (canvas) {
       for(let i=0;i<5;i++){const grad=ctx.createLinearGradient(0,285,0,370);grad.addColorStop(0,'#f1b07144');grad.addColorStop(.65,hot);grad.addColorStop(1,'#f1b07144');rect(248+i*8,292,3,70,1,grad)}
       rect(354,175,48,104,9,'#12333e','#5ed7d399');for(let j=0;j<7;j++)line([[361,184+j*12],[394,191+j*12]],'#63d5d4b3',1.3);
       line([[402,190],[493,190],[493,105]],'#63d5d459',2);line([[402,260],[523,260],[523,105]],'#63d5d43a',2);rect(474,72,68,32,5,'#24505b55','#61c2cd66');for(let i=0;i<8;i++)line([[480+i*8,78],[480+i*8,96]],'#6ac7cd40');
-      if(mode==='msr'){
-        line([[206,393],[265,393],[265,367]],'#6cceca70',1.5);
-        for(let i=0;i<11;i++){const k=(i/11+phase*2)%1;ctx.beginPath();ctx.arc(265+Math.sin(i*12)*8,370-k*85,1.5+(i%3)*.4,0,Math.PI*2);ctx.strokeStyle='#88e7e7b0';ctx.lineWidth=.8;ctx.stroke()}
-        text('He INJECTION',115,407,9,'#7ed3d4');
-      }
       line([[240,323],[145,323],[123,309]],'#bda89266');text(mode==='smr'?'REACTOR CORE':'FUEL-SALT CORE',65,299,10,'#c7d5de');text('Heat generation',65,315,8,'#819daa');
       line([[403,227],[464,227],[478,214]],'#69b4bd66');text('HEAT EXCHANGER',465,292,9,'#b0d5dd');text('PASSIVE HEAT SINK',508,57,9,'#96bfcc','center');
       text('HOT LEG',229,218,8,'#c89b7b','right');text('COLD LEG',414,345,8,'#6ab7c4');line([[194,96],[144,72],[94,72]],'#86aabc52');text('CONTAINMENT',64,62,8,'#6d98ac');text(mode==='smr'?'SMALL MODULAR REACTOR':'MOLTEN SALT REACTOR',321,493,9,'#749bad','center');
