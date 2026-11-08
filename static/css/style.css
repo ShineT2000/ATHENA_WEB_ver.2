@@ -34,3 +34,17 @@ dialog{padding:30px;border:0;border-radius:6px;box-shadow:0 30px 120px #0005;col
 
 .rs-subtopic{margin-top:32px;padding-top:26px;border-top:1px solid var(--line);scroll-margin-top:110px}
 .rs-subtopic h3{font-size:calc(20px + var(--font-increase));line-height:1.5;margin-bottom:12px}
+
+.rd-field-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:28px}
+.rd-field-nav a{display:flex;align-items:baseline;gap:12px;padding:16px 18px;border:1px solid #d5e6ea;border-radius:4px;color:#263f50;font-size:calc(12px + var(--font-increase));line-height:1.6;text-decoration:none}
+.rd-field-nav a span{flex:none;color:#078d97;font-size:calc(10px + var(--font-increase));font-weight:700}
+.rd-field-nav a:hover,.rd-field-nav a:focus-visible{background:#eef7f8;border-color:#078d97}
+.rd-research-fields>.rs-topic{border-top:2px solid #d5e6ea;padding-block:36px}
+.rd-research-fields>.rs-topic>.rd-field-label{margin:0 0 10px;color:#078d97;font-size:calc(10px + var(--font-increase));font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.rd-research-fields>.rs-topic>h2{font-size:calc(25px + var(--font-increase));line-height:1.45}
+.rd-pmfr-methods{margin-top:32px;padding:26px 28px 28px;background:#f3f8f9;border:1px solid #d5e6ea;border-left:4px solid #138f98;border-radius:6px}
+.rd-pmfr-methods>.rd-methods-label{margin:0;color:#147781;font-size:calc(10px + var(--font-increase));font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.rd-pmfr-methods>.rs-subtopic:first-of-type{margin-top:20px;padding-top:0;border-top:0}
+.rd-pmfr-methods .rs-subtopic h3{font-size:calc(18px + var(--font-increase));line-height:1.5}
+.rd-pmfr-methods .rs-figs figure{background:#fff}
+@media(max-width:680px){.rd-field-nav{grid-template-columns:1fr;gap:8px}.rd-field-nav a{padding:13px 15px}.rd-research-fields>.rs-topic{padding-block:28px}.rd-research-fields>.rs-topic>h2{font-size:calc(22px + var(--font-increase))}.rd-pmfr-methods{padding:22px 16px;border-left-width:3px}.rd-pmfr-methods .rs-subtopic h3{font-size:calc(17px + var(--font-increase))}.rd-pmfr-methods .rs-figs figure{padding:14px}}
