@@ -1,4 +1,8 @@
-<section class="rs-intro"><h2>AI for Nuclear Safety</h2><p class="rs-ko" lang="ko">MAAP 기반 대리모델로 사고관리 조치에 따른 격납건물 압력 이력을 예측하고 전략을 비교</p><p>ATHENA develops AI methods to support the analysis of accident progression and management strategies. The September 2026 research presentation focuses on a neural-network surrogate trained on MAAP simulations. It maps an accident scenario and the timing of mitigation actions to a predicted containment pressure history, supporting comparison of candidate action schedules.</p></section>
+<section class="rs-intro">
+<h2>AI for Nuclear Safety</h2>
+<p class="rs-ko" lang="ko">사고해석 데이터와 AI 대리모델을 활용해 사고 진행과 격납건물 압력을 예측하고, 조치 시점에 따른 사고관리 전략을 비교·평가합니다.</p>
+<p>ATHENA combines accident simulation data with machine learning to predict plant responses and support the evaluation of accident management strategies. We develop surrogate models that estimate containment pressure histories and compare the effects of mitigation actions and their timing.</p>
+</section>
 <section class="rs-topic" id="surrogate"><h3>MAAP surrogate for severe accident management</h3><p class="rs-ko" lang="ko">사고 시나리오·조치 시작 시각을 입력받는 MAAP 신경망 대리모델과 GUI</p><ul class="rs-tags"><li>MAAP</li><li>Neural network surrogate</li><li>SAMG</li></ul>
 <p>The model uses a database of MAAP severe accident simulations covering scenarios and SAMG action schedules. Inputs include the scenario and the start times of POSRV opening, reactor coolant system injection and containment spray.</p>
 <p>The illustrated model predicts a 72-hour pressure history on a five-minute time grid. A GUI allows users to enter action timing and inspect the resulting history. The neural-network architecture is presented as a conceptual model.</p>
