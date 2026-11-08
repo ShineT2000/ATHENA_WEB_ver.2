@@ -58,10 +58,11 @@ def nav(current):
     return ''.join(out)
 
 
-def research_cards():
+def research_cards(show_korean=True):
     cards = []
     for i, (slug, title, tags, ko, desc, photo) in enumerate(FIELDS, 1):
-        cards.append(f'<a class="research-card" href="/research/{slug}/"><div class="research-image"><img src="/static/img/research/{photo}" alt="{esc(title)} research diagram" loading="lazy"><span class="card-index">0{i}</span></div><div class="research-copy"><p class="small-label">{esc(tags)}</p><h3>{title} {arrow()}</h3><p>{desc}</p><span class="ko">{ko}</span></div></a>')
+        korean = f'<span class="ko">{ko}</span>' if show_korean else ''
+        cards.append(f'<a class="research-card" href="/research/{slug}/"><div class="research-image"><img src="/static/img/research/{photo}" alt="{esc(title)} research diagram" loading="lazy"><span class="card-index">0{i}</span></div><div class="research-copy"><p class="small-label">{esc(tags)}</p><h3>{title} {arrow()}</h3><p>{desc}</p>{korean}</div></a>')
     return '<div class="research-grid">' + ''.join(cards) + '</div>'
 
 
@@ -101,7 +102,7 @@ def home():
       <p id="reactor-description">ATHENA PMFR</p></div>
       <div class="hero-bottom"><span><b>2011 — 2026</b> &nbsp; 15 years of ATHENA</span><a href="#research">Discover the laboratory <span>↓</span></a></div>
     </div></section>
-    <section class="section wrap" id="research"><div class="section-heading"><div><p class="eyebrow">WHAT WE DO</p><h2>Research Fields</h2></div><a class="text-link" href="/research/">All research {arrow()}</a></div>{research_cards()}</section>
+    <section class="section wrap" id="research"><div class="section-heading"><div><p class="eyebrow">WHAT WE DO</p><h2>Research Fields</h2></div><a class="text-link" href="/research/">All research {arrow()}</a></div>{research_cards(show_korean=False)}</section>
     <section class="community-section"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">THE PEOPLE &amp; THE WORK</p><h2>A community of researchers.</h2></div><a class="text-link" href="/people/">Meet our people {arrow()}</a></div><div class="people-stats">{people}</div><div class="publication-strip"><div><p class="eyebrow">RESEARCH OUTPUT</p><h3>From ideas to evidence.</h3><small>Publication and people counts from the ATHENA repository.</small></div><div class="pub-stats">{pubs}</div></div></div></section>
     <section class="section wrap"><div class="section-heading"><div><p class="eyebrow">FROM THE LAB</p><h2>Latest News</h2></div><a class="text-link" href="/news/">All news {arrow()}</a></div>{news_cards(3)}</section>
     <section class="history-section"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">OUR RESEARCH HISTORY</p><h2>15 years. Still moving forward.</h2></div><a class="text-link light" href="/about/">Our story {arrow()}</a></div>{timeline()}<p class="source-note">Research history based on the ATHENA Lab. introduction, September 30, 2026.</p></div></section>
