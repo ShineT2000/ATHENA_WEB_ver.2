@@ -235,15 +235,12 @@ if (canvas) {
     // Two secondary-side connections, with no external primary pump or loop.
     line([[320-pmfrDowncomerOffset-4,57],[320-pmfrDowncomerOffset-4,28],[294,28]],'#74d9d78c',1.5);
     line([[320+pmfrDowncomerOffset+4,57],[320+pmfrDowncomerOffset+4,28],[346,28]],'#cba97b8c',1.5);
-    text('SECONDARY SYSTEM',320,18,8,'#9fbdc9','center');
     line([[320,439],[320,458],[126,458]],'#9ce0dd8c',1.6);
     line([[297,425],[343,425]],'#a7e8e4b3',1.7);
     line([[320,439],[320,425]],'#a7e8e4b3',1.7);
     // Callouts stay outside the vessel to keep the cutaway legible.
     line([[205,81],[173,65],[81,65]],'#86aabc66');
     text('METAL CONTAINMENT',64,55,9,'#97b4c3');
-    line([[294,101],[170,101],[155,113]],'#84c7ba66');
-    text('GAS SEPARATOR',64,128,9,'#97c5bf');
     line([[301,225],[174,225],[159,213]],'#d7b18e66');
     text('CENTRAL RISER',64,195,10,'#d0c3b1');text('Heated fuel salt rises',64,210,8,'#8ba4b2');
     line([[280,383],[164,383],[150,369]],'#d7b18e66');
