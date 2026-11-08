@@ -100,7 +100,7 @@ if (canvas) {
     mode = button.dataset.reactor; $$('[data-reactor]').forEach(b => b.setAttribute('aria-pressed',b === button));
     $('#reactor-description').textContent = mode === 'smr' ? 'SMR · Passive heat removal by natural circulation' : 'PMFR · Natural circulation with helium-bubble lift';
     $('.concept-note').textContent = mode === 'smr' ? 'Conceptual illustration' : 'ATHENA PMFR · Simplified cutaway';
-    canvas.setAttribute('aria-label',mode === 'smr' ? 'Illustrative SMR loop: core heating and passive heat removal.' : 'ATHENA PMFR conceptual cutaway: fuel salt heats in the lower core, rises through the central riser, cools at the surrounding helical-coil heat exchanger and returns through the outer downcomer. Helium bubbles rise to the upper separator and off-gas system.');
+    canvas.setAttribute('aria-label',mode === 'smr' ? 'Illustrative SMR loop: core heating and passive heat removal.' : 'ATHENA PMFR conceptual cutaway: fuel salt heats in the lower core, rises through the central riser, then flows downward through the helical-coil heat exchangers surrounding the outer downcomers before returning to the core. Helium bubbles rise to the upper separator and off-gas system.');
   }));
   const initialMode = new URLSearchParams(window.location.search).get('reactor');
   $(`[data-reactor="${initialMode === 'smr' ? 'smr' : 'msr'}"]`).click();
@@ -109,10 +109,11 @@ if (canvas) {
   function text(str,x,y,size=10,color='#83a8ba',align='left') {ctx.font=`${size}px Lato,Arial,sans-serif`;ctx.fillStyle=color;ctx.textAlign=align;ctx.fillText(str,x,y);}
   function rect(x,y,w,h,r,fill,stroke) {ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke()}}
   // PMFR layout follows the lab's reactor-design-pmfr-1.png. Streamlines are
-  // illustrative: central upflow, cooling around the coils, outer return flow.
+  // illustrative: central upflow, cooling through the coils in the downcomers.
+  const pmfrDowncomerOffset = 77, pmfrCoilTop = 153, pmfrCoilBottom = 311;
   // Cache arc-length samples so particles move continuously through every bend.
   function pmfrLoop(side, lane) {
-    const cx = 320 + lane * 5, outer = 320 + side * (77 + lane * 5);
+    const cx = 320 + lane * 5, outer = 320 + side * (pmfrDowncomerOffset + lane * 5);
     const segments = [
       [[cx,414],[cx,340],[cx,202],[cx,131]],
       [[cx,131],[cx,105],[outer,105],[outer,143]],
@@ -143,6 +144,29 @@ if (canvas) {
   }
   function arrow(x,y,direction,color) {
     line([[x-5,y-direction*5],[x,y+direction*3],[x+5,y-direction*5]],color,1.5);
+  }
+  function drawPMFRHeatExchangers(front) {
+    for(const side of [-1,1]) {
+      // The downflow and coil bank share a centerline, so all return streams
+      // pass through the exchanger envelope instead of bypassing it outside.
+      const center=320+side*pmfrDowncomerOffset;
+      if(!front)rect(center-18,pmfrCoilTop,36,pmfrCoilBottom-pmfrCoilTop,8,'#122e3770','#80c2c124');
+      const coil=ctx.createLinearGradient(center-17,0,center+17,0);
+      coil.addColorStop(0,'#8a784e');coil.addColorStop(.35,'#e5c991');coil.addColorStop(1,'#9eab87');
+      for(let turn=0;turn<13;turn++) {
+        ctx.beginPath();
+        for(let step=0;step<=24;step++) {
+          const angle=(turn*2+(front?0:1)+step/24)*Math.PI;
+          const x=center+17*Math.cos(angle), y=155+angle/(2*Math.PI)*11.5+4*Math.sin(angle);
+          step?ctx.lineTo(x,y):ctx.moveTo(x,y);
+        }
+        ctx.strokeStyle=front?coil:'#709d9b60';ctx.lineWidth=front?2.6:1.7;ctx.stroke();
+      }
+      if(front) {
+        line([[center-11,155],[center-11,101],[center-4,101],[center-4,57]],'#74d9d7a6',2);
+        line([[center+11,307],[center+11,98],[center+4,98],[center+4,57]],'#cba97b66',1.5);
+      }
+    }
   }
   function drawPMFR() {
     const hot = '#f2ad78', cold = '#65d8d4', gold = '#d9bc7e';
@@ -180,36 +204,21 @@ if (canvas) {
       rect(x,358,8,58,3,'#1e3542','#9db1bc69');
       rect(x+2,363,3,45,1,gold+'a6');
     }
+    // Rear coil turns sit behind the descending fuel salt; front turns are
+    // drawn afterward to show the flow passing through each helical bank.
+    drawPMFRHeatExchangers(false);
     // Both return paths join the same liquid-fuel core at the bottom.
     for (const loop of pmfrLoops) {
       line(loop.points.map(p => [p.x,p.y]),'#99c5c122',.8);
       for(let i=0;i<29;i++) {
         const [x,y]=flowPoint(loop,i/29+phase*.78+loop.lane*.009);
-        const cooling=Math.abs(x-320)>42 ? Math.max(0,Math.min(1,(y-145)/170)) : (y>402 ? .5 : 0);
+        const cooling=Math.abs(x-320)>42 ? Math.max(0,Math.min(1,(y-pmfrCoilTop)/(pmfrCoilBottom-pmfrCoilTop))) : (y>402 ? .5 : 0);
         const rgb=[242,173,120].map((v,j)=>Math.round(v+([101,216,212][j]-v)*cooling));
         ctx.beginPath();ctx.arc(x,y,loop.lane===0?1.8:1.2,0,Math.PI*2);
         ctx.fillStyle=`rgba(${rgb.join(',')},${loop.lane===0?.85:.42})`;ctx.fill();
       }
     }
-    // Annular helical-coil heat exchanger flanks the riser in this section.
-    for(const side of [-1,1]) {
-      const center=320+side*54;
-      rect(center-18,153,36,158,8,'#122e3770','#80c2c124');
-      const coil=ctx.createLinearGradient(center-17,0,center+17,0);
-      coil.addColorStop(0,'#8a784e');coil.addColorStop(.35,'#e5c991');coil.addColorStop(1,'#9eab87');
-      // A continuous helix; rear half-turns are dimmed to suggest depth.
-      for(const front of [false,true])for(let turn=0;turn<13;turn++) {
-        ctx.beginPath();
-        for(let step=0;step<=24;step++) {
-          const angle=(turn*2+(front?0:1)+step/24)*Math.PI;
-          const x=center+17*Math.cos(angle), y=155+angle/(2*Math.PI)*11.5+4*Math.sin(angle);
-          step?ctx.lineTo(x,y):ctx.moveTo(x,y);
-        }
-        ctx.strokeStyle=front?coil:'#709d9b60';ctx.lineWidth=front?2.6:1.7;ctx.stroke();
-      }
-      line([[center-11,155],[center-11,101],[center-4,101],[center-4,57]],'#74d9d7a6',2);
-      line([[center+11,307],[center+11,98],[center+4,98],[center+4,57]],'#cba97b66',1.5);
-    }
+    drawPMFRHeatExchangers(true);
     // Helium bubbles rise from the sparger through the core and central riser.
     for(let i=0;i<20;i++) {
       const k=(i/20+phase*1.65)%1, y=420-k*305;
@@ -219,7 +228,7 @@ if (canvas) {
     }
     ctx.restore();
     arrow(320,227,-1,hot);arrow(320,287,-1,hot);
-    arrow(242,252,1,cold);arrow(398,342,1,cold);
+    arrow(320-pmfrDowncomerOffset,252,1,cold);arrow(320+pmfrDowncomerOffset,342,1,cold);
     // Separator and off-gas piping at the top of the vessel.
     rect(294,93,52,17,5,'#2c5554','#84c7ba88');
     for(const x of [235,387])rect(x,65,18,29,4,'#326759b3','#79bba566');
@@ -231,8 +240,8 @@ if (canvas) {
     }
     text('OFF-GAS SYSTEM',457,46,9,'#9ed0c6');
     // Two secondary-side connections, with no external primary pump or loop.
-    line([[262,57],[262,28],[294,28]],'#74d9d78c',1.5);
-    line([[378,57],[378,28],[346,28]],'#cba97b8c',1.5);
+    line([[320-pmfrDowncomerOffset-4,57],[320-pmfrDowncomerOffset-4,28],[294,28]],'#74d9d78c',1.5);
+    line([[320+pmfrDowncomerOffset+4,57],[320+pmfrDowncomerOffset+4,28],[346,28]],'#cba97b8c',1.5);
     text('SECONDARY SYSTEM',320,18,8,'#9fbdc9','center');
     line([[320,439],[320,458],[126,458]],'#9ce0dd8c',1.6);
     line([[297,425],[343,425]],'#a7e8e4b3',1.7);
@@ -247,11 +256,11 @@ if (canvas) {
     line([[280,383],[164,383],[150,369]],'#d7b18e66');
     text('LIQUID-FUEL CORE',64,348,10,'#e3bf9e');text('Heat generation',64,363,8,'#8ba4b2');
     text('He INJECTION',64,449,9,'#a5dcd7');
-    line([[390,200],[462,200],[477,184]],'#d9bc7e88');
+    line([[320+pmfrDowncomerOffset+17,200],[462,200],[477,184]],'#d9bc7e88');
     text('HELICAL-COIL',455,157,10,'#dbc59f');text('HEAT EXCHANGER',455,171,10,'#dbc59f');
     text('Heat to secondary salt',455,186,8,'#8ba4b2');
     line([[398,348],[458,348],[473,335]],'#65d8d477');
-    text('DOWNCOMER',461,311,10,'#a7d7d7');text('Cooled fuel salt returns',461,326,8,'#8ba4b2');
+    text('DOWNCOMER',461,311,10,'#a7d7d7');text('Downflow through coil bank',461,326,8,'#8ba4b2');
     text('PMFR',320,494,13,'#c1d8df','center');
     text('PASSIVE MOLTEN SALT FAST REACTOR',320,510,8,'#749bad','center');
   }

@@ -97,7 +97,7 @@ def home():
       <div class="hero-actions"><a class="button primary" href="/research/">Explore our research <span>↗</span></a><a class="text-link light" href="/people/principal-investigator/">Meet Prof. Sung Joong Kim <span>→</span></a></div>
       </div>
       <div class="hero-visual"><div class="visual-heading"><span class="small-label">NATURAL CIRCULATION</span><div class="reactor-switch" role="group" aria-label="Reactor concept"><button data-reactor="smr" aria-pressed="false">SMR</button><button data-reactor="msr" aria-pressed="true">MSR</button></div></div>
-      <canvas id="reactor-canvas" width="640" height="530" role="img" aria-label="ATHENA PMFR conceptual cutaway: central riser, helical-coil heat exchanger, outer downcomer and helium injection."></canvas>
+      <canvas id="reactor-canvas" width="640" height="530" role="img" aria-label="ATHENA PMFR conceptual cutaway: central riser, helical-coil heat exchangers surrounding the outer downcomer flow paths, and helium injection."></canvas>
       <div class="visual-caption"><span><i class="hot"></i> Heat source</span><span><i class="cold"></i> Heat removal</span><button id="motion-toggle" aria-pressed="false">Pause animation</button></div>
       <p id="reactor-description">PMFR · Natural circulation with helium-bubble lift</p><span class="concept-note">ATHENA PMFR · Simplified cutaway</span></div>
       <div class="hero-bottom"><span><b>2011 — 2026</b> &nbsp; 15 years of ATHENA</span><a href="#research">Discover the laboratory <span>↓</span></a></div>
