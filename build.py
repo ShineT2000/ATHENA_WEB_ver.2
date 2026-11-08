@@ -98,7 +98,7 @@ def home():
       <div class="hero-visual"><div class="visual-heading"><span class="small-label">NATURAL CIRCULATION</span><span class="reactor-name">PMFR</span></div>
       <canvas id="reactor-canvas" width="640" height="530" role="img" aria-label="ATHENA PMFR conceptual cutaway: central riser, helical-coil heat exchangers surrounding the outer downcomer flow paths, and helium injection."></canvas>
       <div class="visual-caption"><span><i class="hot"></i> Heat source</span><span><i class="cold"></i> Heat removal</span><button id="motion-toggle" aria-pressed="false">Pause animation</button></div>
-      <p id="reactor-description">PMFR · Natural circulation with helium-bubble lift</p><span class="concept-note">ATHENA PMFR · Simplified cutaway</span></div>
+      <p id="reactor-description">ATHENA PMFR</p></div>
       <div class="hero-bottom"><span><b>2011 — 2026</b> &nbsp; 15 years of ATHENA</span><a href="#research">Discover the laboratory <span>↓</span></a></div>
     </div></section>
     <section class="section wrap" id="research"><div class="section-heading"><div><p class="eyebrow">WHAT WE DO</p><h2>Research Fields</h2></div><a class="text-link" href="/research/">All research {arrow()}</a></div>{research_cards()}</section>
