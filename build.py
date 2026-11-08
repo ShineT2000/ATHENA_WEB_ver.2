@@ -93,7 +93,6 @@ def home():
       <h1 id="hero-title">Welcome to<br><em>ATHENA Lab.</em></h1>
       <p class="hero-fullname">Advanced Thermal Hydraulic Engineering<br>for Nuclear Application Laboratory</p>
       <p class="hero-description">We combine thermal-hydraulic experiments and numerical analysis to develop advanced reactors and improve nuclear safety.</p>
-      <p class="hero-korean" lang="ko">한양대학교 원자력 열수력 연구실에 오신 것을 환영합니다.<br>실험과 전산 해석으로 차세대 원자로의 안전을 연구합니다.</p>
       <div class="hero-actions"><a class="button primary" href="/research/">Explore our research <span>↗</span></a><a class="text-link light" href="/people/principal-investigator/">Meet Prof. Sung Joong Kim <span>→</span></a></div>
       </div>
       <div class="hero-visual"><div class="visual-heading"><span class="small-label">NATURAL CIRCULATION</span><span class="reactor-name">PMFR</span></div>
