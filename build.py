@@ -112,7 +112,7 @@ def home():
 def hub(page):
     route = page['url']
     if route == '/research':
-        return '<p class="eyebrow">RESEARCH OVERVIEW · SEPTEMBER 2026</p><p class="page-lead">Experiments and numerical analysis for passive reactor safety, PMFR development and accident management.</p>' + research_cards() + '<p class="source-note">Research themes and illustrations updated from the ATHENA Lab. introduction, September 30, 2026, slides 5–17.</p>'
+        return '<p class="eyebrow">RESEARCH OVERVIEW · SEPTEMBER 2026</p><p class="page-lead">Experiments and numerical analysis for passive reactor safety, PMFR development and accident management.</p>' + research_cards()
     if route == '/news':
         articles = []
         for i, n in enumerate(NEWS):
