@@ -3,53 +3,73 @@
 <p class="rs-ko" lang="ko">열수력 실험과 CFD·계통코드·노물리 연계 해석으로 유동·열제거 성능을 평가하고 원자로 설계를 개선합니다.</p>
 <p>ATHENA combines thermal-hydraulic experiments with CFD, system-code simulations, and coupled reactor physics analysis to develop advanced reactor concepts. We use experimental data and numerical predictions to evaluate flow and heat removal and guide component design and system optimization.</p>
 </section>
-<section class="rs-topic" id="pmfr"><h2>Passive Molten Salt Fast Reactor (PMFR)</h2><p class="rs-ko" lang="ko">i-SAFE-MSR 연구의 세 축: 자연순환 성능, 불용성 핵분열생성물 거동, 피동안전·열성능 최적화</p><ul class="rs-tags"><li>PMFR</li><li>i-SAFE-MSR</li><li>Natural circulation</li></ul>
-<p>Within the i-SAFE-MSR research program, ATHENA investigates the thermal-hydraulic and safety design of the PMFR. Fuel salt heats in the lower core, rises through the central riser and transfers heat at the helical-coil heat exchanger before returning through the downcomer. Helium bubbling is investigated both to enhance circulation and to assist fission product removal.</p>
-<p>The work connects component experiments with reactor physics and thermal-hydraulic calculations. Accident prevention and passive decay heat removal are design objectives evaluated through these studies.</p>
+
+<section class="rs-topic" id="pmfr">
+<h2>PMFR Design and Thermal-Hydraulic Optimization</h2>
+<p class="rs-ko" lang="ko">PMFR의 자연순환 실험·노물리-열수력 연계 해석·열교환기 및 1차 계통 최적화를 연결하는 설계 연구</p>
+<ul class="rs-tags"><li>PMFR</li><li>Natural circulation</li><li>Design optimization</li></ul>
+<p>Within the i-SAFE-MSR program, ATHENA investigates the thermal-hydraulic and safety design of the Passive Molten Salt Fast Reactor (PMFR). Fuel salt heats in the lower core, rises through the central riser and returns through the outer downcomer, transferring heat to the helical-coil heat exchanger. The design studies examine how the reactor layout and component geometry affect circulation and heat removal.</p>
 <div class="rs-figs">
 <figure><img src="/static/img/research/reactor-design-pmfr-1.png" alt="PMFR concept with a lower core, central riser, helical-coil heat exchanger, helium injection and an upper off-gas system." loading="lazy"><figcaption><strong>Fig. 1.</strong> PMFR concept with a lower core, central riser, helical-coil heat exchanger, helium injection and an upper off-gas system.</figcaption></figure>
 </div>
-</section>
-<section class="rs-topic" id="helium"><h2>Helium bubbling and natural circulation</h2><p class="rs-ko" lang="ko">비가열 2상 자연순환 실험과 용융염 모사 유체 루프를 이용한 헬륨 버블링 효과·상사법칙 평가</p><ul class="rs-tags"><li>Two-phase experiment</li><li>OpenFOAM</li><li>Scaling laws</li></ul>
-<p>We study how injected helium changes two-phase flow and the circulation of the working fluid. The program combines adiabatic natural-circulation experiments, visual observation of bubbles and OpenFOAM simulations of velocity and gas volume fraction.</p>
-<p>Laboratory and larger loop configurations support scaling studies for molten salt fuel simulants. These comparisons help identify thermal-hydraulic parameters needed when moving from an experimental loop to a reactor concept.</p>
+
+<section class="rs-subtopic" id="helium" aria-labelledby="helium-title">
+<h3 id="helium-title">Natural circulation experiments and scaling</h3>
+<p>We use adiabatic two-phase loops and bubble visualization to examine how helium injection changes circulation. Laboratory and larger-loop configurations using molten salt fuel simulants support scaling studies and provide thermal-hydraulic data for model assessment.</p>
 <div class="rs-figs">
 <figure><img src="/static/img/research/reactor-design-helium-2.jpg" alt="Adiabatic two-phase natural-circulation loop used in the helium bubbling research program." loading="lazy"><figcaption><strong>Fig. 2.</strong> Adiabatic two-phase natural-circulation loop used in the helium bubbling research program.</figcaption></figure>
 </div>
 </section>
-<section class="rs-topic" id="multiphysics"><h2>Coupled reactor physics and thermal-hydraulic analysis</h2><p class="rs-ko" lang="ko">OpenFOAM과 Serpent·OpenMC를 연계해 출력 분포와 열수력 피드백을 평가</p><ul class="rs-tags"><li>OpenFOAM</li><li>Serpent</li><li>OpenMC</li></ul>
-<p>Liquid fuel links the heat source directly to the flow field. Our analysis couples reactor physics calculations with thermal-hydraulic models to evaluate the distribution of heat generation, fuel salt circulation and heat transfer.</p>
-<p>The coupled workflow combines OpenFOAM with Serpent and OpenMC. The coupled approach also provides a basis for investigating changes in power distribution and temperature under marine motion.</p>
+
+<section class="rs-subtopic" id="multiphysics" aria-labelledby="multiphysics-title">
+<h3 id="multiphysics-title">Coupled reactor physics and thermal-hydraulic analysis</h3>
+<p>Our coupled workflow links OpenFOAM thermal-hydraulic calculations with reactor physics results from Serpent and OpenMC. It evaluates the interaction between power distribution, fuel salt temperature and circulation, providing a basis for comparing core and flow-path designs.</p>
 <div class="rs-figs">
 <figure><img src="/static/img/research/pmfr-coupled-analysis-2026.png" alt="Coupled PMFR analysis workflow linking reactor power distribution, volumetric heating and the thermal-hydraulic fuel salt calculation, as presented in September 2026." loading="lazy"><figcaption><strong>Fig. 3.</strong> Coupled PMFR analysis workflow linking reactor power distribution, volumetric heating and the thermal-hydraulic fuel salt calculation, as presented in September 2026.</figcaption></figure>
 </div>
 </section>
-<section class="rs-topic" id="fission-products"><h2>Insoluble fission products and bubble-assisted removal</h2><p class="rs-ko" lang="ko">기포 부상에 의한 불용성 핵분열생성물 제거 실험과 유체·기포·나노입자의 3상 거동 해석</p><ul class="rs-tags"><li>Fission products</li><li>Helium bubbling</li><li>MPS</li></ul>
-<p>We investigate the flotation and capture of insoluble fission products using helium bubbles. Experiments examine particle concentration and the influence of particle size, helium flow rate and initial concentration.</p>
-<p>Numerical development uses the Moving Particle Semi-Implicit (MPS) method to represent fluid, bubbles and particles, including particle attachment to bubble surfaces. Verification and validation of the in-house model accompany the experimental studies.</p>
+
+<section class="rs-subtopic" id="optimization" aria-labelledby="optimization-title">
+<h3 id="optimization-title">Heat exchanger and primary-loop optimization</h3>
+<p>Helical-coil heat exchanger studies examine the balance between heat transfer and flow resistance in the primary loop. Pareto design studies compare candidate designs to identify thermal-hydraulic tradeoffs.</p>
+<p>These design choices are considered alongside <a href="/research/safety-analysis/#msr-safety">PCM-based passive safety</a> to connect normal-operation performance with decay heat removal requirements.</p>
 <div class="rs-figs rs-figs-2">
-<figure><img src="/static/img/research/pmfr-fission-product-facility-2026.jpg" alt="Experimental apparatus for investigating bubble-assisted removal of insoluble fission product simulants." loading="lazy"><figcaption><strong>Fig. 4.</strong> Experimental apparatus for investigating bubble-assisted removal of insoluble fission product simulants.</figcaption></figure>
-<figure><img src="/static/img/research/pmfr-bubble-particle-experiment-2026.png" alt="Bubble and particle visualization from the fission product removal experiments shown in the September 2026 presentation." loading="lazy"><figcaption><strong>Fig. 5.</strong> Bubble and particle visualization from the fission product removal experiments shown in the September 2026 presentation.</figcaption></figure>
+<figure><img src="/static/img/research/pmfr-helical-coil-design-2026.jpg" alt="Helical-coil heat exchanger geometry considered in the PMFR thermal-hydraulic design studies." loading="lazy"><figcaption><strong>Fig. 4.</strong> Helical-coil heat exchanger geometry considered in the PMFR thermal-hydraulic design studies.</figcaption></figure>
+<figure><img src="/static/img/research/pmfr-design-tradeoff-2026.png" alt="Example PMFR Pareto design space from the September 2026 presentation. The plotted cases represent the illustrated study conditions." loading="lazy"><figcaption><strong>Fig. 5.</strong> Example PMFR Pareto design space from the September 2026 presentation. The plotted cases represent the illustrated study conditions.</figcaption></figure>
 </div>
 </section>
-<section class="rs-topic" id="optimization"><h2>PMFR safety and thermal performance optimization</h2><p class="rs-ko" lang="ko">나선형 열교환기·1차 계통의 열수력 성능과 PCM 피동안전계통을 함께 고려하는 설계 최적화</p><ul class="rs-tags"><li>Helical-coil heat exchanger</li><li>Design tradeoffs</li><li>Passive safety</li></ul>
-<p>The PMFR design studies consider heat exchanger geometry and primary-loop thermal hydraulics together. Pareto design studies compare competing thermal and flow requirements rather than selecting geometry from heat transfer alone.</p>
-<p>This work connects with <a href="/research/safety-analysis/#msr-safety">PCM-based passive safety studies</a> and the investigation of fission product removal. Together, these topics address the relationship between normal-operation thermal performance and decay heat removal requirements.</p>
+</section>
+
+<section class="rs-topic" id="fission-products">
+<h2>Bubble-Assisted Fission Product Removal</h2>
+<p class="rs-ko" lang="ko">기포 부상에 의한 불용성 핵분열생성물 제거 실험과 유체·기포·입자의 3상 거동 해석</p>
+<ul class="rs-tags"><li>Fission products</li><li>Bubble-particle interaction</li><li>MPS</li></ul>
+<p>We investigate the flotation and capture of insoluble fission products using helium bubbles. Experiments with particle simulants examine changes in concentration and the influence of particle size, helium flow rate and initial concentration.</p>
+<p>The Moving Particle Semi-Implicit (MPS) model addresses fluid, bubbles and particles, including particle attachment to bubble surfaces. Experimental observations support verification and validation of the in-house model used to study removal behavior.</p>
 <div class="rs-figs rs-figs-2">
-<figure><img src="/static/img/research/pmfr-helical-coil-design-2026.jpg" alt="Helical-coil heat exchanger geometry considered in the PMFR thermal-hydraulic design studies." loading="lazy"><figcaption><strong>Fig. 6.</strong> Helical-coil heat exchanger geometry considered in the PMFR thermal-hydraulic design studies.</figcaption></figure>
-<figure><img src="/static/img/research/pmfr-design-tradeoff-2026.png" alt="Example PMFR Pareto design space from the September 2026 presentation. The plotted cases represent the illustrated study conditions." loading="lazy"><figcaption><strong>Fig. 7.</strong> Example PMFR Pareto design space from the September 2026 presentation. The plotted cases represent the illustrated study conditions.</figcaption></figure>
+<figure><img src="/static/img/research/pmfr-fission-product-facility-2026.jpg" alt="Experimental apparatus for investigating bubble-assisted removal of insoluble fission product simulants." loading="lazy"><figcaption><strong>Fig. 6.</strong> Experimental apparatus for investigating bubble-assisted removal of insoluble fission product simulants.</figcaption></figure>
+<figure><img src="/static/img/research/pmfr-bubble-particle-experiment-2026.png" alt="Bubble and particle visualization from the fission product removal experiments shown in the September 2026 presentation." loading="lazy"><figcaption><strong>Fig. 7.</strong> Bubble and particle visualization from the fission product removal experiments shown in the September 2026 presentation.</figcaption></figure>
 </div>
 </section>
-<section class="rs-topic" id="ncsmr"><h2>Natural-circulation SMRs and flooding safety concepts</h2><p class="rs-ko" lang="ko">자연순환 SMR의 침수안전계통 개념 설계와 실험시설 기획</p><ul class="rs-tags"><li>Natural circulation</li><li>Flooding safety system</li><li>Conceptual design</li></ul>
-<p>ATHENA investigates a natural-circulation SMR with a metal containment vessel and a flooding safety system (FSS). The concept uses flooding around the containment to provide an additional heat removal path during an accident. Reactor and FSS behavior are evaluated with system-code models.</p>
-<p>A dedicated experimental facility is in conceptual design, with experiments planned as a subsequent step. Earlier SMR research also examined passive residual heat removal, two-phase air cooling for a supercritical CO<sub>2</sub> cycle and pulsating heat pipes.</p>
+
+<section class="rs-topic" id="ncsmr">
+<h2>Natural-Circulation SMR and Flooding Safety System</h2>
+<p class="rs-ko" lang="ko">자연순환 SMR의 침수안전계통 구성과 실험시설 개념 설계</p>
+<ul class="rs-tags"><li>Natural circulation</li><li>Flooding safety system</li><li>Conceptual design</li></ul>
+<p>ATHENA studies the system configuration of a natural-circulation SMR with a metal containment vessel and an on-demand flooding safety system (FSS). The design work examines the heat removal path provided by flooding around the containment and its integration with the reactor system.</p>
+<p>System-code models inform design choices and the conceptual design of a dedicated experimental facility, with experiments planned as a subsequent step. Accident-condition performance and containment heat transfer validation are addressed in <a href="/research/safety-analysis/#mcv">Safety Analysis</a>.</p>
+<p>This program builds on earlier SMR studies of passive residual heat removal, two-phase air cooling for a supercritical CO<sub>2</sub> cycle and pulsating heat pipes.</p>
 <div class="rs-figs">
 <figure><img src="/static/img/research/reactor-design-ncsmr-4.png" alt="Concept of a flooding safety system for natural-circulation SMRs. Experimental facility development is described as planned work in the September 2026 program." loading="lazy"><figcaption><strong>Fig. 8.</strong> Concept of a flooding safety system for natural-circulation SMRs. Experimental facility development is described as planned work in the September 2026 program.</figcaption></figure>
 </div>
 </section>
-<section class="rs-topic" id="marine"><h2>Ocean motion effects on PMFR and freeze valves</h2><p class="rs-ko" lang="ko">해양 운동에 따른 노심 출력·온도 변화와 동결밸브의 밀봉 상실·배출 거동 평가</p><ul class="rs-tags"><li>Marine MSR</li><li>Coupled analysis</li><li>Freeze valve</li></ul>
-<p>The PMFR program extends to the effects of ocean motion. Coupled analyses examine changes in the core power distribution, temperature and reactivity under rolling motion.</p>
-<p>Separate freeze-valve studies compare seal loss and drainage under different motions, including roll, pitch and translational motion. These studies inform the assessment of fuel salt drainage for marine applications. Related <a href="/research/severe-accident/#marine-msr">marine MSR accident research</a> examines salt spill and solidification.</p>
+
+<section class="rs-topic" id="marine">
+<h2>Marine Motion Effects and Freeze-Valve Performance</h2>
+<p class="rs-ko" lang="ko">해양 운동 조건에 따른 노심 응답과 동결밸브의 밀봉·염 배출 성능 평가</p>
+<ul class="rs-tags"><li>Marine MSR</li><li>Coupled analysis</li><li>Freeze valve</li></ul>
+<p>Using the <a href="#multiphysics">coupled PMFR model</a>, we assess how rolling motion changes core power distribution, fuel salt temperature and reactivity.</p>
+<p>Freeze-valve studies evaluate seal loss and salt drainage under roll, pitch and translational motions. These studies address drainage performance for marine applications. Related <a href="/research/severe-accident/#marine-msr">marine MSR accident research</a> examines salt spill, spreading and solidification.</p>
 <div class="rs-figs rs-figs-2">
 <figure><img src="/static/img/research/marine-pmfr-reactivity-2026.png" alt="Example time history of the calculated effective multiplication factor in the marine-motion study presented in September 2026." loading="lazy"><figcaption><strong>Fig. 9.</strong> Example time history of the calculated effective multiplication factor in the marine-motion study presented in September 2026.</figcaption></figure>
 <figure><img src="/static/img/research/marine-freeze-valve-motion-2026.png" alt="Example comparison of freeze-valve response under rolling motion. Results apply to the specific cases shown in the source presentation." loading="lazy"><figcaption><strong>Fig. 10.</strong> Example comparison of freeze-valve response under rolling motion. Results apply to the specific cases shown in the source presentation.</figcaption></figure>
