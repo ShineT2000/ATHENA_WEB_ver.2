@@ -44,9 +44,11 @@ FSS 실험은 발표자료의 “in plan”을 따라 기획 단계로 기술했
 
 ### 메인 화면 PMFR 애니메이션 (2026-11-05)
 
+- 2026-11-08 사용자 요청에 따라 메인 화면의 SMR 선택 버튼과 SMR 렌더링을 제거하고 PMFR만 표시합니다. 재생·일시정지 및 동작 줄이기 설정은 유지합니다.
+
 - 2026-11-08 사용자 요청에 따라 양측 나선형 열교환기를 외곽 하강 유로의 중심선으로 옮겼습니다. 하강 입자는 코일 내부 영역을 통과하고 열교환기 높이에서 고온색에서 저온색으로 바뀝니다. 뒤쪽 코일·유체 입자·앞쪽 코일 순으로 그려 코일이 하강 유로를 둘러싸는 관계를 표현했습니다.
 
-- MSR 선택 시 표시하는 단면도는 `static/img/research/reactor-design-pmfr-1.png`의 PMFR 형상을 참고해 Canvas로 직접 구현했습니다. 금속 격납용기, 하부 액체연료 노심, 중앙 상승관, 나선형 열교환기, 외곽 하강부, 헬륨 주입부와 상부 가스 분리·배출 계통을 단순화했습니다.
+- 메인 화면에 표시하는 단면도는 `static/img/research/reactor-design-pmfr-1.png`의 PMFR 형상을 참고해 Canvas로 직접 구현했습니다. 금속 격납용기, 하부 액체연료 노심, 중앙 상승관, 나선형 열교환기, 외곽 하강부, 헬륨 주입부와 상부 가스 분리·배출 계통을 단순화했습니다.
 - ATHENA 연구 소개: https://sites.google.com/hanyang.ac.kr/athena/research/smr-small-modular-reactor
 - 자연순환 방향 참고: Juhyeong Lee et al., “Analysis of natural circulation characteristics of passive molten salt fast reactor by using OpenFOAM simulation,” KNS Spring Meeting, 2023. https://www.kns.org/files/pre_paper/49/23S-374-%EC%9D%B4%EC%A3%BC%ED%98%95.pdf
 - 입자와 기포의 속도·크기, 색상과 구조물 비율은 설명을 위한 시각적 표현이며 수치해석 결과나 실제 설계 치수가 아닙니다.

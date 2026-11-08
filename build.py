@@ -96,7 +96,7 @@ def home():
       <p class="hero-korean" lang="ko">한양대학교 원자력 열수력 연구실에 오신 것을 환영합니다.<br>실험과 전산 해석으로 차세대 원자로의 안전을 연구합니다.</p>
       <div class="hero-actions"><a class="button primary" href="/research/">Explore our research <span>↗</span></a><a class="text-link light" href="/people/principal-investigator/">Meet Prof. Sung Joong Kim <span>→</span></a></div>
       </div>
-      <div class="hero-visual"><div class="visual-heading"><span class="small-label">NATURAL CIRCULATION</span><div class="reactor-switch" role="group" aria-label="Reactor concept"><button data-reactor="smr" aria-pressed="false">SMR</button><button data-reactor="msr" aria-pressed="true">MSR</button></div></div>
+      <div class="hero-visual"><div class="visual-heading"><span class="small-label">NATURAL CIRCULATION</span><span class="reactor-name">PMFR</span></div>
       <canvas id="reactor-canvas" width="640" height="530" role="img" aria-label="ATHENA PMFR conceptual cutaway: central riser, helical-coil heat exchangers surrounding the outer downcomer flow paths, and helium injection."></canvas>
       <div class="visual-caption"><span><i class="hot"></i> Heat source</span><span><i class="cold"></i> Heat removal</span><button id="motion-toggle" aria-pressed="false">Pause animation</button></div>
       <p id="reactor-description">PMFR · Natural circulation with helium-bubble lift</p><span class="concept-note">ATHENA PMFR · Simplified cutaway</span></div>

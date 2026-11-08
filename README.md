@@ -24,7 +24,7 @@ python -m http.server 4173 --bind 127.0.0.1 --directory dist
 - `pages/research/`: 연구 분야 상세 설명. 그림은 `static/img/research/`입니다.
 - `templates/base.html`: 모든 페이지의 공통 헤더, 메뉴, 검색, 푸터.
 - `static/css/style.css`: 데스크톱·태블릿·모바일 스타일.
-- `static/js/site.js`: 메뉴, 사이트 검색, 논문·구성원 필터, 사진 확대, SMR/MSR 개념도.
+- `static/js/site.js`: 메뉴, 사이트 검색, 논문·구성원 필터, 사진 확대, PMFR 개념도.
 - `static/img/lab-life/`: 제공된 발표 자료에서 추출한 실제 연구실 활동 사진.
 - `verify.py`: 내부 링크·그림·폰트·앵커·검색 인덱스와 논문 목록 누락 검사.
 - `docs/SOURCES.md`: 출처와 자료가 다른 경우의 적용 기준.
@@ -62,7 +62,7 @@ Remove-Item Env:SITE_BASE
 - 연도별 논문 펼치기, 저자·제목·연도 검색
 - 구성원 이름·연구 관심 분야 검색
 - 실제 연구실 사진 갤러리와 확대 보기
-- SMR/MSR 열수력 개념도 전환과 애니메이션 일시정지
+- PMFR 자연순환 개념도와 애니메이션 일시정지
 - 키보드 탐색, Escape로 대화상자 닫기, 동작 줄이기 설정 지원
 
 첫 화면 그림은 열의 발생·제거와 자연순환을 설명하기 위한 개념도이며 실제 원자로 해석 결과를 표시하지 않습니다.

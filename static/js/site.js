@@ -91,19 +91,12 @@ $$('.gallery-open').forEach(button => button.addEventListener('click', () => {
 const canvas = $('#reactor-canvas');
 if (canvas) {
   const ctx = canvas.getContext('2d'), reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  let mode = 'msr', paused = reducedMotion.matches, active = true, phase = 0, last = 0;
+  let paused = reducedMotion.matches, active = true, phase = 0, last = 0;
   const pauseButton = $('#motion-toggle');
   function syncMotion() { pauseButton.textContent = paused ? 'Play animation' : 'Pause animation'; pauseButton.setAttribute('aria-pressed',paused); }
   syncMotion(); pauseButton.addEventListener('click', () => { paused = !paused; syncMotion(); });
   reducedMotion.addEventListener('change', e => { paused = e.matches; syncMotion(); });
-  $$('[data-reactor]').forEach(button => button.addEventListener('click', () => {
-    mode = button.dataset.reactor; $$('[data-reactor]').forEach(b => b.setAttribute('aria-pressed',b === button));
-    $('#reactor-description').textContent = mode === 'smr' ? 'SMR · Passive heat removal by natural circulation' : 'PMFR · Natural circulation with helium-bubble lift';
-    $('.concept-note').textContent = mode === 'smr' ? 'Conceptual illustration' : 'ATHENA PMFR · Simplified cutaway';
-    canvas.setAttribute('aria-label',mode === 'smr' ? 'Illustrative SMR loop: core heating and passive heat removal.' : 'ATHENA PMFR conceptual cutaway: fuel salt heats in the lower core, rises through the central riser, then flows downward through the helical-coil heat exchangers surrounding the outer downcomers before returning to the core. Helium bubbles rise to the upper separator and off-gas system.');
-  }));
-  const initialMode = new URLSearchParams(window.location.search).get('reactor');
-  $(`[data-reactor="${initialMode === 'smr' ? 'smr' : 'msr'}"]`).click();
+  canvas.setAttribute('aria-label','ATHENA PMFR conceptual cutaway: fuel salt heats in the lower core, rises through the central riser, then flows downward through the helical-coil heat exchangers surrounding the outer downcomers before returning to the core. Helium bubbles rise to the upper separator and off-gas system.');
   new IntersectionObserver(entries => { active = entries[0].isIntersecting; }).observe(canvas);
   function line(points,color,width=1) {ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();points.forEach(([x,y],i) => i ? ctx.lineTo(x,y) : ctx.moveTo(x,y));ctx.stroke();}
   function text(str,x,y,size=10,color='#83a8ba',align='left') {ctx.font=`${size}px Lato,Arial,sans-serif`;ctx.fillStyle=color;ctx.textAlign=align;ctx.fillText(str,x,y);}
@@ -273,27 +266,7 @@ if (canvas) {
       const glow=ctx.createRadialGradient(330,268,10,330,268,240);glow.addColorStop(0,'#1a758022');glow.addColorStop(1,'#1a758000');ctx.fillStyle=glow;ctx.fillRect(0,0,640,530);
       for(let x=60;x<590;x+=24)for(let y=25;y<500;y+=24){ctx.fillStyle='#8bc6d011';ctx.fillRect(x,y,1,1)}
       ctx.setLineDash([4,7]);line([[324,40],[324,475]],'#8ac3d516');line([[70,270],[580,270]],'#8ac3d516');ctx.setLineDash([]);
-      if (mode === 'msr') { drawPMFR(); requestAnimationFrame(draw); return; }
-      rect(170,59,288,394,130,'#39647608','#89b5c12c');rect(192,81,244,350,106,'#2c53611b','#8eb9c652');
-      line([[195,410],[180,460],[448,460],[432,410]],'#739aaa43');line([[172,468],[457,468]],'#93b8c82b');
-      const hot=mode==='smr'?'#eaa276':'#eda66d';
-      const path=u=>{const t=(u%1)*Math.PI*2;return[321-58*Math.sin(t),267+137*Math.cos(t),t]};
-      // Circulation paths trace a continuous loop around the heat source and sink.
-      for(let strand=-3;strand<=3;strand++){
-        ctx.beginPath();for(let j=0;j<=120;j++){const[x,y]=path(j/120);j?ctx.lineTo(x+strand*4,y):ctx.moveTo(x+strand*4,y)}ctx.strokeStyle='#6c9eaf27';ctx.lineWidth=.7;ctx.stroke();
-        for(let j=0;j<25;j++){
-          const[x,y,t]=path((j/25+phase+strand*.013)%1);ctx.beginPath();ctx.arc(x+strand*4,y,1.1+(strand===0?.5:0),0,Math.PI*2);ctx.fillStyle=Math.sin(t)>0?hot:'#59cfd2';ctx.globalAlpha=.25+.5*(1-Math.abs(strand)/5);ctx.fill();ctx.globalAlpha=1;
-        }
-      }
-      const coreGlow=ctx.createRadialGradient(265,327,5,265,327,90);coreGlow.addColorStop(0,'#eaa06e25');coreGlow.addColorStop(1,'#eaa06e00');ctx.fillStyle=coreGlow;ctx.fillRect(165,227,200,200);
-      rect(241,282,48,91,10,'#172f3b',hot+'99');
-      for(let i=0;i<5;i++){const grad=ctx.createLinearGradient(0,285,0,370);grad.addColorStop(0,'#f1b07144');grad.addColorStop(.65,hot);grad.addColorStop(1,'#f1b07144');rect(248+i*8,292,3,70,1,grad)}
-      rect(354,175,48,104,9,'#12333e','#5ed7d399');for(let j=0;j<7;j++)line([[361,184+j*12],[394,191+j*12]],'#63d5d4b3',1.3);
-      line([[402,190],[493,190],[493,105]],'#63d5d459',2);line([[402,260],[523,260],[523,105]],'#63d5d43a',2);rect(474,72,68,32,5,'#24505b55','#61c2cd66');for(let i=0;i<8;i++)line([[480+i*8,78],[480+i*8,96]],'#6ac7cd40');
-      line([[240,323],[145,323],[123,309]],'#bda89266');text(mode==='smr'?'REACTOR CORE':'FUEL-SALT CORE',65,299,10,'#c7d5de');text('Heat generation',65,315,8,'#819daa');
-      line([[403,227],[464,227],[478,214]],'#69b4bd66');text('HEAT EXCHANGER',465,292,9,'#b0d5dd');text('PASSIVE HEAT SINK',508,57,9,'#96bfcc','center');
-      text('HOT LEG',229,218,8,'#c89b7b','right');text('COLD LEG',414,345,8,'#6ab7c4');line([[194,96],[144,72],[94,72]],'#86aabc52');text('CONTAINMENT',64,62,8,'#6d98ac');text(mode==='smr'?'SMALL MODULAR REACTOR':'MOLTEN SALT REACTOR',321,493,9,'#749bad','center');
-      line([[254,245],[265,231],[276,245]],hot+'99',1.3);line([[366,313],[377,327],[388,313]],'#57c9cd99',1.3);
+      drawPMFR();
     } else last=time;
     requestAnimationFrame(draw);
   }
