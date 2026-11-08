@@ -112,7 +112,7 @@ def home():
 def hub(page):
     route = page['url']
     if route == '/research':
-        return '<p class="eyebrow">RESEARCH OVERVIEW · SEPTEMBER 2026</p><p class="page-lead">Experiments and numerical analysis for passive reactor safety, PMFR development and accident management.</p>' + research_cards() + '<div class="callout"><h2>Marine molten salt reactor safety</h2><p>Marine applications connect reactor design with accident analysis. We investigate ocean-motion effects on the PMFR and freeze valves, together with salt spill, spreading and solidification in the MARS-100 research direction.</p><a class="text-link" href="/research/reactor-design/#marine">Ocean motion &amp; freeze valves →</a><br><a class="text-link" href="/research/severe-accident/#marine-msr">MARS-100 &amp; salt spill research →</a></div><p class="source-note">Research themes and illustrations updated from the ATHENA Lab. introduction, September 30, 2026, slides 5–17.</p>'
+        return '<p class="eyebrow">RESEARCH OVERVIEW · SEPTEMBER 2026</p><p class="page-lead">Experiments and numerical analysis for passive reactor safety, PMFR development and accident management.</p>' + research_cards() + '<p class="source-note">Research themes and illustrations updated from the ATHENA Lab. introduction, September 30, 2026, slides 5–17.</p>'
     if route == '/news':
         articles = []
         for i, n in enumerate(NEWS):
