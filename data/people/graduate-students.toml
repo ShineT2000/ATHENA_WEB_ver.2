@@ -2,15 +2,21 @@
 # 한 사람 = [[group.person]] 블록 하나. 순서대로 화면에 표시됩니다.
 # 사진은 static/img/people/ 에 넣고 파일 이름만 적습니다.
 # since = 입학 연월(이름 옆 괄호에 표시), keywords = KEY WORD 줄의 키워드
-
+# program = 입학 과정: integrated(석박통합), phd(박사), masters(석사)
+# 분류 기준일: 2026.11. 경과 개월 수 = (기준 연도 - 입학 연도) * 12 + 기준 월 - 입학 월.
+# Ph.D. Candidates: 박사 24개월 이상 또는 석박통합 36개월 이상.
+# Ph.D. Students: 박사 24개월 미만 또는 석박통합 24개월 이상 36개월 미만.
+# M.S. Students: 석사 과정 또는 석박통합 24개월 미만.
+# 각 그룹 안에서는 입학 연월이 빠른 순서로 표시합니다.
 
 [[group]]
-title = "M.S.–Ph.D. Integrated Students"
+title = "Ph.D. Candidates"
 divider_after = true
 
 [[group.person]]
 name = "Namgook Kim"
 since = "2018.03"
+program = "integrated"
 photo = "namgook-kim.png"
 email = "ngkim@hanyang.ac.kr"
 education = [
@@ -24,6 +30,7 @@ keywords = ["CHF", "Critical Heat Flux"]
 [[group.person]]
 name = "Yunsik Cho"
 since = "2018.09"
+program = "integrated"
 photo = "yunsik-cho.png"
 email = "yunscho@hanyang.ac.kr"
 education = [
@@ -37,6 +44,7 @@ keywords = ["MPS", "중대사고", "MSR", "FP"]
 [[group.person]]
 name = "Jihun Im"
 since = "2020.03"
+program = "integrated"
 photo = "jihun-im.jpg"
 email = "jihunlim@hanyang.ac.kr"
 education = [
@@ -50,6 +58,7 @@ keywords = ["피동안전", "MSR", "동력변환"]
 [[group.person]]
 name = "Ju Hyeong Lee"
 since = "2021.03"
+program = "integrated"
 photo = "ju-hyeong-lee.png"
 email = "juhyeonglee@hanyang.ac.kr"
 education = [
@@ -63,6 +72,7 @@ keywords = ["다물리", "연계해석", "CFD"]
 [[group.person]]
 name = "Won Jun Choi"
 since = "2021.09"
+program = "integrated"
 photo = "won-jun-choi.png"
 email = "wjchoi97@hanyang.ac.kr"
 education = [
@@ -76,6 +86,7 @@ keywords = ["MSR", "헬륨버블링", "상사법칙"]
 [[group.person]]
 name = "Hyo Jun An"
 since = "2022.03"
+program = "integrated"
 photo = "hyo-jun-an.png"
 email = "hjan97@hanyang.ac.kr"
 education = [
@@ -89,6 +100,7 @@ keywords = ["SMR", "System code", "Passive safety"]
 [[group.person]]
 name = "Cheolwoong Kim"
 since = "2023.03"
+program = "integrated"
 photo = "cheolwoong-kim.png"
 email = "cjfdnd9310@hanyang.ac.kr"
 education = [
@@ -100,51 +112,9 @@ research = [
 keywords = ["중대사고", "UQ", "i-SMR", "AI"]
 
 [[group.person]]
-name = "Do Won Lee"
-since = "2024.09"
-photo = "do-won-lee.jpg"
-email = "dwlee98@hanyang.ac.kr"
-education = [
-  "B.S. Nuclear Engineering, Hanyang University, 2024.",
-]
-research = [
-  "Numerical analysis of safety and source term for MSR",
-]
-keywords = ["MSR", "안전", "CFD", "선원항"]
-
-[[group.person]]
-name = "Seung Min Lee"
-since = "2026.03"
-photo = "seung-min-lee.jpg"
-email = "afjl53@hanyang.ac.kr"
-education = [
-  "B.S. Nuclear Engineering, Hanyang University, 2026",
-]
-research = [
-  "safety analysis and neutronics analysis for MSR",
-]
-keywords = ["MSR", "Multiphysics", "System TH"]
-
-[[group.person]]
-name = "Hyunjun Chung"
-since = "2026.03"
-photo = "hyunjun-chung.jpg"
-email = "hjchung@hanyang.ac.kr"
-education = [
-  "B.S Quantum System Engineering, Jeonbuk National University, 2026",
-]
-research = [
-  "i-SMR severe accident analysis and MSR core design",
-]
-keywords = ["중대사고", "i-SMR", "MSR"]
-
-[[group]]
-title = "Ph.D. Students"
-divider_after = true
-
-[[group.person]]
 name = "Ye Hwan Chun"
 since = "2023.03"
+program = "phd"
 photo = "ye-hwan-chun.png"
 email = "yhchun@hanyang.ac.kr"
 education = [
@@ -156,9 +126,28 @@ research = [
 ]
 keywords = ["열유체", "MSR", "CFD", "고화용융"]
 
+[[group]]
+title = "Ph.D. Students"
+divider_after = true
+
+[[group.person]]
+name = "Do Won Lee"
+since = "2024.09"
+program = "integrated"
+photo = "do-won-lee.jpg"
+email = "dwlee98@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Hanyang University, 2024.",
+]
+research = [
+  "Numerical analysis of safety and source term for MSR",
+]
+keywords = ["MSR", "안전", "CFD", "선원항"]
+
 [[group.person]]
 name = "BERLOT Baptiste"
 since = "2025.09"
+program = "phd"
 photo = "berlot-baptiste.jpg"
 email = "berlot@hanyang.ac.kr"
 education = [
@@ -176,6 +165,7 @@ title = "M.S. Students"
 [[group.person]]
 name = "Yujin Kim"
 since = "2025.03"
+program = "masters"
 photo = "yujin-kim.jpg"
 email = "yjkim25@hanyang.ac.kr"
 education = [
@@ -189,6 +179,7 @@ keywords = ["중대사고", "ML", "피동안전"]
 [[group.person]]
 name = "Ok Hyeon Lee"
 since = "2025.03"
+program = "masters"
 photo = "ok-hyeon-lee.png"
 email = "okhlee@hanyang.ac.kr"
 education = [
@@ -202,6 +193,7 @@ keywords = ["중대사고", "UQ", "CINEMA"]
 [[group.person]]
 name = "Jaemin Han"
 since = "2025.03"
+program = "masters"
 photo = "jaemin-han.jpg"
 email = "hjmin29@hanyang.ac.kr"
 education = [
@@ -213,8 +205,37 @@ research = [
 keywords = ["CFD", "열수력", "MSR"]
 
 [[group.person]]
+name = "Seung Min Lee"
+since = "2026.03"
+program = "integrated"
+photo = "seung-min-lee.jpg"
+email = "afjl53@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Hanyang University, 2026",
+]
+research = [
+  "safety analysis and neutronics analysis for MSR",
+]
+keywords = ["MSR", "Multiphysics", "System TH"]
+
+[[group.person]]
+name = "Hyunjun Chung"
+since = "2026.03"
+program = "integrated"
+photo = "hyunjun-chung.jpg"
+email = "hjchung@hanyang.ac.kr"
+education = [
+  "B.S Quantum System Engineering, Jeonbuk National University, 2026",
+]
+research = [
+  "i-SMR severe accident analysis and MSR core design",
+]
+keywords = ["중대사고", "i-SMR", "MSR"]
+
+[[group.person]]
 name = "Yu Seong Go"
 since = "2026.03"
+program = "masters"
 photo = "yu-seong-go.jpg"
 email = "ysgo00@hanyang.ac.kr"
 education = [
@@ -228,6 +249,7 @@ keywords = ["중대사고", "System code", "AI"]
 [[group.person]]
 name = "Sinho Kim"
 since = "2026.09"
+program = "masters"
 photo = "sinho-kim.png"
 email = "kim4star@hanyang.ac.kr"
 education = [
