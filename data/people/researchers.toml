@@ -9,7 +9,7 @@ divider_after = true
 
 [[group.person]]
 name = "Jae Hyung Park"
-photo = "jae-hyung-park.png"
+photo = "jae-hyung-park.jpg"
 email = "jhpark19@hanyang.ac.kr"
 education = [
   "B.S. Nuclear Engineering, Hanyang University, 2019",
