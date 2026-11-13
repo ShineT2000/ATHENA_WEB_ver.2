@@ -7,7 +7,9 @@
 # Ph.D. Candidates: 박사 24개월 이상 또는 석박통합 36개월 이상.
 # Ph.D. Students: 박사 24개월 미만 또는 석박통합 24개월 이상 36개월 미만.
 # M.S. Students: 석사 과정 또는 석박통합 24개월 미만.
-# 각 그룹 안에서는 입학 연월이 빠른 순서로 표시합니다.
+# 각 그룹 안에서는 누적 학업기간이 긴 순서로 표시합니다.
+# 누적 학업기간 = 입학 후 경과 개월 수 + 석사학위 취득자의 추정 석사 학업기간(24개월).
+# 학업기간이 같으면 기존 상대 순서를 유지합니다. 그룹 분류는 위 입학 후 경과 개월 기준을 유지합니다.
 
 [[group]]
 title = "Ph.D. Candidates"
@@ -70,6 +72,21 @@ research = [
 keywords = ["다물리", "연계해석", "CFD"]
 
 [[group.person]]
+name = "Ye Hwan Chun"
+since = "2023.03"
+program = "phd"
+photo = "ye-hwan-chun.png"
+email = "yhchun@hanyang.ac.kr"
+education = [
+  "B.S. Mechanical Engineering, Hanbat National University. 2021",
+  "M.S. Mechanical Engineering, Kookmin University. 2023",
+]
+research = [
+  "Experimental and numerical study of molten salt flow",
+]
+keywords = ["열유체", "MSR", "CFD", "고화용융"]
+
+[[group.person]]
 name = "Won Jun Choi"
 since = "2021.09"
 program = "integrated"
@@ -111,38 +128,9 @@ research = [
 ]
 keywords = ["중대사고", "UQ", "i-SMR", "AI"]
 
-[[group.person]]
-name = "Ye Hwan Chun"
-since = "2023.03"
-program = "phd"
-photo = "ye-hwan-chun.png"
-email = "yhchun@hanyang.ac.kr"
-education = [
-  "B.S. Mechanical Engineering, Hanbat National University. 2021",
-  "M.S. Mechanical Engineering, Kookmin University. 2023",
-]
-research = [
-  "Experimental and numerical study of molten salt flow",
-]
-keywords = ["열유체", "MSR", "CFD", "고화용융"]
-
 [[group]]
 title = "Ph.D. Students"
 divider_after = true
-
-[[group.person]]
-name = "Do Won Lee"
-since = "2024.09"
-program = "integrated"
-photo = "do-won-lee.jpg"
-email = "dwlee98@hanyang.ac.kr"
-education = [
-  "B.S. Nuclear Engineering, Hanyang University, 2024.",
-]
-research = [
-  "Numerical analysis of safety and source term for MSR",
-]
-keywords = ["MSR", "안전", "CFD", "선원항"]
 
 [[group.person]]
 name = "BERLOT Baptiste"
@@ -158,6 +146,20 @@ research = [
   "Molten Salt Reactor",
 ]
 keywords = ["MSR", "자연순환", "동특성", "안정성"]
+
+[[group.person]]
+name = "Do Won Lee"
+since = "2024.09"
+program = "integrated"
+photo = "do-won-lee.jpg"
+email = "dwlee98@hanyang.ac.kr"
+education = [
+  "B.S. Nuclear Engineering, Hanyang University, 2024.",
+]
+research = [
+  "Numerical analysis of safety and source term for MSR",
+]
+keywords = ["MSR", "안전", "CFD", "선원항"]
 
 [[group]]
 title = "M.S. Students"
